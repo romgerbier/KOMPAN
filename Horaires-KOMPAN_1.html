@@ -8,11 +8,13 @@
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 body{background:#0f1117;font-family:'Segoe UI',system-ui,sans-serif;color:#e0e0e0;min-height:100vh;}
 :root{--red:#e03535;--red2:#c02828;--card:#181b24;--card2:#1e2230;--border:#252838;--sub:#888;}
+
 /* LOADING */
-#loadingScreen{position:fixed;inset:0;background:#0f1117;z-index:300;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;}
+#loadingScreen{position:fixed;inset:0;background:#0f1117;z-index:300;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;}
 .load-logo{width:80px;height:80px;background:var(--red);border-radius:22px;display:flex;align-items:center;justify-content:center;font-size:34px;font-weight:900;color:#fff;box-shadow:0 0 50px #e0353555;animation:pulse2 1.4s infinite;}
 @keyframes pulse2{0%,100%{box-shadow:0 0 50px #e0353555;}50%{box-shadow:0 0 80px #e0353599;}}
-.load-txt{font-size:12px;color:#444;letter-spacing:.1em;}
+.load-txt{font-size:13px;color:#444;letter-spacing:.1em;}
+
 /* LOGIN */
 #loginScreen{display:none;position:fixed;inset:0;background:linear-gradient(160deg,#1a0808 0%,#0f1117 45%);z-index:200;flex-direction:column;align-items:center;overflow-y:auto;padding:28px 18px 40px;}
 .login-logo{width:82px;height:82px;background:var(--red);border-radius:22px;display:flex;align-items:center;justify-content:center;font-size:34px;font-weight:900;color:#fff;margin:8px 0 14px;box-shadow:0 0 55px #e0353560;}
@@ -20,22 +22,32 @@ body{background:#0f1117;font-family:'Segoe UI',system-ui,sans-serif;color:#e0e0e
 .login-sub{font-size:13px;color:#666;margin-bottom:26px;}
 .login-sec{font-size:11px;color:#444;letter-spacing:.12em;font-weight:700;margin-bottom:11px;align-self:flex-start;width:100%;max-width:380px;}
 .emp-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px;width:100%;max-width:380px;margin-bottom:22px;}
-.emp-card{background:#161820;border:1.5px solid #1e2235;border-radius:18px;padding:20px 10px 15px;text-align:center;cursor:pointer;transition:all .16s;position:relative;}
+.emp-card{background:#161820;border:1px solid #1e2235;border-radius:18px;padding:20px 10px 15px;text-align:center;cursor:pointer;transition:all .16s;position:relative;}
 .emp-card:active{transform:scale(.93);}
 .emp-card.sel{background:#1c0c0c;border-color:var(--red);box-shadow:0 0 18px #e0353528;}
-.emp-av{width:56px;height:56px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:800;color:#fff;margin:0 auto 10px;position:relative;}
-.role-badge{position:absolute;bottom:-4px;right:-4px;width:22px;height:22px;border-radius:50%;background:#0f1117;display:flex;align-items:center;justify-content:center;font-size:13px;border:2px solid #161820;}
+.emp-av{width:54px;height:54px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:800;color:#fff;margin:0 auto 10px;position:relative;}
+.role-badge{position:absolute;bottom:-3px;right:-3px;font-size:15px;line-height:1;}
 .emp-nm{font-size:15px;font-weight:700;color:#e0e0e0;}
-.pin-dots{display:flex;gap:14px;margin:6px 0 16px;}
+
+/* PIN MODAL */
+.pin-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:400;align-items:flex-end;}
+.pin-modal.open{display:flex;}
+.pin-inner{background:#181b24;border-radius:20px 20px 0 0;width:100%;padding:24px 20px 36px;border-top:1px solid #252838;}
+.pin-name{font-size:18px;font-weight:700;color:#fff;margin-bottom:18px;text-align:center;}
+.pin-dots{display:flex;gap:14px;justify-content:center;margin-bottom:20px;}
 .pin-dot{width:15px;height:15px;border-radius:50%;background:#1a1d2a;border:1px solid #2a2d40;transition:background .15s;}
 .pin-dot.on{background:var(--red);border-color:var(--red);}
-.numpad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:100%;max-width:300px;}
-.nk{background:#161820;border:1.5px solid #1e2235;border-radius:16px;padding:18px 8px;font-size:22px;font-weight:600;cursor:pointer;text-align:center;transition:all .14s;color:#ddd;}
+.numpad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:300px;margin:0 auto;}
+.nk{background:#1e2230;border:1px solid #252838;border-radius:16px;padding:18px 8px;font-size:22px;font-weight:600;cursor:pointer;text-align:center;transition:all .14s;color:#ddd;}
 .nk:active{background:var(--red);border-color:var(--red);color:#fff;transform:scale(.90);}
 .nk.sm{font-size:12px;color:#444;font-weight:500;}
-.pin-err{color:var(--red);font-size:13px;margin-top:11px;min-height:18px;font-weight:600;}
+.pin-err{color:var(--red);font-size:13px;margin-top:12px;text-align:center;min-height:18px;font-weight:600;}
+.pin-cancel{margin-top:12px;width:100%;background:transparent;border:1px solid #252838;border-radius:12px;color:#666;font-size:14px;padding:12px;cursor:pointer;}
+
+/* DIR BTN */
 .dir-zone{width:100%;max-width:380px;margin-top:18px;border-top:1px solid #1a1d2a;padding-top:15px;}
 .dir-btn{background:transparent;border:1px solid #222535;border-radius:12px;color:#444;font-size:13px;padding:12px 18px;cursor:pointer;width:100%;}
+
 /* MAIN */
 #mainApp{display:none;padding-bottom:85px;}
 .topbar{display:flex;align-items:center;justify-content:space-between;padding:13px 15px 7px;}
@@ -45,7 +57,8 @@ body{background:#0f1117;font-family:'Segoe UI',system-ui,sans-serif;color:#e0e0e
 .t-date{font-size:11px;color:var(--sub);}
 .sync-pill{display:flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:6px 12px;cursor:pointer;}
 .sdot{width:8px;height:8px;border-radius:50%;background:var(--red);transition:background .3s;}
-.sdot.ok{background:#27c97a;}.sdot.spin{animation:blink 1s infinite;}
+.sdot.ok{background:#27c97a;}
+.sdot.spin{animation:blink 1s infinite;}
 @keyframes blink{0%,100%{opacity:1;}50%{opacity:.2;}}
 .slbl{font-size:11px;color:var(--sub);}
 .months{display:flex;gap:6px;padding:4px 14px 10px;overflow-x:auto;scrollbar-width:none;}
@@ -64,21 +77,25 @@ input[type=date]{opacity:0;height:0;width:0;position:absolute;}
 .tab{padding:13px 6px;border-radius:10px;border:1px solid var(--border);background:var(--card2);color:#777;font-size:13px;cursor:pointer;text-align:center;transition:all .15s;}
 .tab.on{background:var(--red);border-color:var(--red);color:#fff;font-weight:700;}
 .tgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-.tbox{background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:11px 13px;display:flex;align-items:center;margin-top:6px;}
+.tbox{background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:11px 13px;display:flex;align-items:center;justify-content:space-between;margin-top:6px;}
 .tbox input[type=time]{background:transparent;border:none;outline:none;color:#ddd;font-size:15px;width:100%;font-family:inherit;}
 .tbox input::-webkit-calendar-picker-indicator{filter:invert(.35);}
 .hbar{background:var(--card2);border-radius:10px;padding:13px 14px;display:flex;align-items:center;justify-content:space-between;margin-top:10px;}
-.hval{font-size:20px;font-weight:800;color:#27c97a;}.hval.neg{color:var(--red);}
+.hval{font-size:20px;font-weight:800;color:#27c97a;}
+.hval.neg{color:var(--red);}
 .hsub{font-size:11px;color:#555;margin-top:3px;}
 .period-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;}
 .period-info{background:#0e1f0e;border:1px solid #1e3a1e;border-radius:10px;padding:10px 13px;margin-top:10px;font-size:12px;color:#6dc96d;}
 .savebtn{display:block;width:calc(100% - 24px);margin:12px 12px 0;background:var(--red);border:none;border-radius:14px;padding:17px;font-size:16px;font-weight:700;color:#fff;cursor:pointer;}
-.savebtn:active{background:var(--red2);}.savebtn:disabled{background:#3a1515;color:#884444;cursor:not-allowed;}
+.savebtn:active{background:var(--red2);transform:scale(.98);}
+.savebtn:disabled{background:#3a1515;color:#884444;cursor:not-allowed;}
 .bnav{position:fixed;bottom:0;left:0;right:0;background:#0d0f17;border-top:1px solid var(--border);display:flex;z-index:100;}
 .bnav-item{flex:1;display:flex;flex-direction:column;align-items:center;padding:10px 0 16px;cursor:pointer;gap:3px;}
-.bnav-item .ni{font-size:18px;}.bnav-item .nl{font-size:11px;color:#555;}
+.bnav-item .ni{font-size:18px;}
+.bnav-item .nl{font-size:11px;color:#555;}
 .bnav-item.on .nl{color:var(--red);}
-.scr{display:none;}.scr.on{display:block;}
+.scr{display:none;}
+.scr.on{display:block;}
 .rtbl{width:100%;border-collapse:collapse;font-size:13px;}
 .rtbl th{color:#555;font-weight:500;padding:7px 8px;border-bottom:1px solid var(--border);text-align:left;font-size:11px;}
 .rtbl td{padding:9px 8px;border-bottom:1px solid #1a1c24;color:#ccc;}
@@ -86,28 +103,28 @@ input[type=date]{opacity:0;height:0;width:0;position:absolute;}
 .badge{display:inline-block;padding:2px 8px;border-radius:8px;font-size:11px;font-weight:600;}
 .bw{background:#2a1010;color:#e03535;}.bc{background:#102030;color:#4ab8f0;}.bf{background:#2a2510;color:#f0c840;}
 .mh-row{display:flex;align-items:center;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--border);}
-.mh-row:last-child{border:none;}.mh-val{font-size:14px;font-weight:700;}
+.mh-row:last-child{border:none;}
+.mh-val{font-size:14px;font-weight:700;}
 .mh-val.pos{color:#27c97a;}.mh-val.neg{color:var(--red);}
 .week-card{background:var(--card2);border-radius:10px;padding:12px;margin-bottom:8px;}
 .prog{background:#252838;border-radius:6px;height:5px;overflow:hidden;margin-top:6px;}
 .prog-fill{height:100%;border-radius:6px;transition:width .4s;}
 .cfg-row{display:flex;align-items:center;justify-content:space-between;padding:13px 0;border-bottom:1px solid var(--border);}
-.cfg-row:last-child{border:none;}.cfg-label{font-size:13px;color:#ccc;}.cfg-val{font-size:13px;color:var(--sub);}
+.cfg-row:last-child{border:none;}
+.cfg-label{font-size:13px;color:#ccc;}
+.cfg-val{font-size:13px;color:var(--sub);}
 .cfg-input{background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:7px 10px;color:#ddd;font-size:13px;width:90px;text-align:center;}
 .cfg-sec{font-size:11px;color:#444;letter-spacing:.1em;font-weight:600;margin:14px 0 8px;}
 .emp-cfg-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
 .emp-cfg-pin{background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:6px 10px;color:#ddd;font-size:13px;width:70px;text-align:center;}
 .del-btn{background:#2a1010;border:1px solid #4a1515;border-radius:8px;color:#e03535;font-size:12px;padding:6px 10px;cursor:pointer;}
 .toast{position:fixed;top:16px;left:50%;transform:translateX(-50%) translateY(-80px);background:#27c97a;color:#fff;padding:10px 20px;border-radius:12px;font-size:13px;font-weight:700;z-index:999;transition:transform .3s;white-space:nowrap;}
-.toast.show{transform:translateX(-50%) translateY(0);}.toast.err{background:var(--red);}
-.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:400;align-items:flex-end;}
-.modal-bg.open{display:flex;}
-.modal{background:var(--card);border-radius:20px 20px 0 0;width:100%;padding:24px 20px 36px;border-top:1px solid var(--border);}
-.modal-title{font-size:16px;font-weight:700;margin-bottom:16px;}
-.modal input{background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:13px 14px;color:#ddd;font-size:16px;width:100%;margin-bottom:10px;letter-spacing:.2em;text-align:center;}
-.modal-btns{display:flex;gap:10px;margin-top:4px;}
-.mbtn-c{flex:1;background:var(--card2);border:1px solid var(--border);border-radius:12px;color:#aaa;padding:14px;cursor:pointer;font-size:14px;}
-.mbtn-ok{flex:1;background:var(--red);border:none;border-radius:12px;color:#fff;padding:14px;cursor:pointer;font-size:14px;font-weight:700;}
+.toast.show{transform:translateX(-50%) translateY(0);}
+.toast.err{background:var(--red);}
+/* Filter tabs for recap/heures */
+.filter-tabs{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;}
+.ftab{background:var(--card2);border:1px solid var(--border);border-radius:20px;color:#777;padding:6px 14px;font-size:13px;cursor:pointer;}
+.ftab.on{background:var(--red);border-color:var(--red);color:#fff;font-weight:600;}
 </style>
 </head>
 <body>
@@ -117,27 +134,73 @@ input[type=date]{opacity:0;height:0;width:0;position:absolute;}
   <div class="load-txt">CHARGEMENT...</div>
 </div>
 
+<!-- LOGIN -->
 <div id="loginScreen">
   <div class="login-logo">K</div>
   <div class="login-title">KOMPAN</div>
   <div class="login-sub">Gestion des horaires équipe</div>
   <div class="login-sec">👷 QUI ÊTES-VOUS ?</div>
   <div class="emp-grid" id="empGrid"></div>
-  <div class="login-sec">🔢 VOTRE CODE PIN</div>
-  <div class="pin-dots">
-    <div class="pin-dot" id="pd0"></div><div class="pin-dot" id="pd1"></div>
-    <div class="pin-dot" id="pd2"></div><div class="pin-dot" id="pd3"></div>
+  <div class="dir-zone">
+    <button class="dir-btn" onclick="openDirModal()">🔐 Accès Admin / Directeur</button>
   </div>
-  <div class="numpad">
-    <button class="nk" onclick="kp('1')">1</button><button class="nk" onclick="kp('2')">2</button><button class="nk" onclick="kp('3')">3</button>
-    <button class="nk" onclick="kp('4')">4</button><button class="nk" onclick="kp('5')">5</button><button class="nk" onclick="kp('6')">6</button>
-    <button class="nk" onclick="kp('7')">7</button><button class="nk" onclick="kp('8')">8</button><button class="nk" onclick="kp('9')">9</button>
-    <button class="nk sm" onclick="kp('clr')">CLR</button><button class="nk" onclick="kp('0')">0</button><button class="nk" onclick="kp('del')">⌫</button>
-  </div>
-  <div class="pin-err" id="pinErr"></div>
-  <div class="dir-zone"><button class="dir-btn" onclick="openDirModal()">🔐 Accès Admin / Directeur</button></div>
 </div>
 
+<!-- PIN MODAL -->
+<div class="pin-modal" id="pinModal">
+  <div class="pin-inner">
+    <div class="pin-name" id="pinModalName">—</div>
+    <div class="pin-dots">
+      <div class="pin-dot" id="pd0"></div><div class="pin-dot" id="pd1"></div>
+      <div class="pin-dot" id="pd2"></div><div class="pin-dot" id="pd3"></div>
+    </div>
+    <div class="numpad">
+      <button class="nk" onclick="kp('1')">1</button>
+      <button class="nk" onclick="kp('2')">2</button>
+      <button class="nk" onclick="kp('3')">3</button>
+      <button class="nk" onclick="kp('4')">4</button>
+      <button class="nk" onclick="kp('5')">5</button>
+      <button class="nk" onclick="kp('6')">6</button>
+      <button class="nk" onclick="kp('7')">7</button>
+      <button class="nk" onclick="kp('8')">8</button>
+      <button class="nk" onclick="kp('9')">9</button>
+      <button class="nk sm" onclick="kp('clr')">CLR</button>
+      <button class="nk" onclick="kp('0')">0</button>
+      <button class="nk" onclick="kp('del')">⌫</button>
+    </div>
+    <div class="pin-err" id="pinErr"></div>
+    <button class="pin-cancel" onclick="closePinModal()">Annuler</button>
+  </div>
+</div>
+
+<!-- DIR MODAL -->
+<div class="pin-modal" id="dirModal">
+  <div class="pin-inner">
+    <div class="pin-name">🔐 Accès Admin / Directeur</div>
+    <div class="pin-dots">
+      <div class="pin-dot" id="dp0"></div><div class="pin-dot" id="dp1"></div>
+      <div class="pin-dot" id="dp2"></div><div class="pin-dot" id="dp3"></div>
+    </div>
+    <div class="numpad">
+      <button class="nk" onclick="dkp('1')">1</button>
+      <button class="nk" onclick="dkp('2')">2</button>
+      <button class="nk" onclick="dkp('3')">3</button>
+      <button class="nk" onclick="dkp('4')">4</button>
+      <button class="nk" onclick="dkp('5')">5</button>
+      <button class="nk" onclick="dkp('6')">6</button>
+      <button class="nk" onclick="dkp('7')">7</button>
+      <button class="nk" onclick="dkp('8')">8</button>
+      <button class="nk" onclick="dkp('9')">9</button>
+      <button class="nk sm" onclick="dkp('clr')">CLR</button>
+      <button class="nk" onclick="dkp('0')">0</button>
+      <button class="nk" onclick="dkp('del')">⌫</button>
+    </div>
+    <div class="pin-err" id="dirPinErr"></div>
+    <button class="pin-cancel" onclick="closeDirModal()">Annuler</button>
+  </div>
+</div>
+
+<!-- MAIN -->
 <div id="mainApp">
   <div class="topbar">
     <div class="t-logo">
@@ -145,17 +208,24 @@ input[type=date]{opacity:0;height:0;width:0;position:absolute;}
       <div><div class="t-name">KOMPAN</div><div class="t-date" id="todayLbl">—</div></div>
     </div>
     <div class="sync-pill" onclick="doSync()">
-      <div class="sdot" id="sdot"></div><span class="slbl" id="slbl">sync</span>
+      <div class="sdot" id="sdot"></div>
+      <span class="slbl" id="slbl">sync</span>
     </div>
   </div>
   <div class="months" id="monthsBar"></div>
 
+  <!-- SAISIE -->
   <div class="scr on" id="scrSaisie">
     <div class="card">
       <div class="lbl">📅 Date</div>
-      <div class="datebox" onclick="document.getElementById('hdate').showPicker()"><span id="dateTxt">—</span><span style="color:#444">▦</span></div>
+      <div class="datebox" onclick="document.getElementById('hdate').showPicker()">
+        <span id="dateTxt">—</span><span style="color:#444">▦</span>
+      </div>
       <input type="date" id="hdate" onchange="onDateChange(this.value)">
-      <div id="empZone" style="margin-top:14px;"><div class="lbl">👥 Employé(s)</div><div class="chips" id="empChips"></div></div>
+      <div id="empZone" style="margin-top:14px;">
+        <div class="lbl">👥 Employé(s)</div>
+        <div class="chips" id="empChips"></div>
+      </div>
     </div>
     <div class="card">
       <div class="tabs3">
@@ -179,61 +249,59 @@ input[type=date]{opacity:0;height:0;width:0;position:absolute;}
     <div class="card" id="congeCard" style="display:none;">
       <div class="lbl">📅 Période de congé</div>
       <div class="period-row">
-        <div><div class="lbl">Du</div><div class="datebox" onclick="document.getElementById('cFrom').showPicker()" style="font-size:14px;"><span id="cFromTxt">—</span><span style="color:#444;font-size:12px;">▦</span></div><input type="date" id="cFrom" onchange="onCongePeriod()"></div>
-        <div><div class="lbl">Au</div><div class="datebox" onclick="document.getElementById('cTo').showPicker()" style="font-size:14px;"><span id="cToTxt">—</span><span style="color:#444;font-size:12px;">▦</span></div><input type="date" id="cTo" onchange="onCongePeriod()"></div>
+        <div>
+          <div class="lbl">Du</div>
+          <div class="datebox" onclick="document.getElementById('cFrom').showPicker()" style="font-size:14px;"><span id="cFromTxt">—</span><span style="color:#444;font-size:12px;">▦</span></div>
+          <input type="date" id="cFrom" onchange="onCongePeriod()">
+        </div>
+        <div>
+          <div class="lbl">Au</div>
+          <div class="datebox" onclick="document.getElementById('cTo').showPicker()" style="font-size:14px;"><span id="cToTxt">—</span><span style="color:#444;font-size:12px;">▦</span></div>
+          <input type="date" id="cTo" onchange="onCongePeriod()">
+        </div>
       </div>
       <div class="period-info" id="periodeInfo" style="display:none;"></div>
     </div>
     <button class="savebtn" id="saveBtn" onclick="saveEntry()">✓ Enregistrer</button>
   </div>
 
+  <!-- MES HEURES -->
   <div class="scr" id="scrMesHeures"><div class="card" id="mhContent"></div></div>
 
+  <!-- RECAP (chef/admin/dir) -->
   <div class="scr" id="scrRecap">
     <div class="card">
       <div style="font-size:14px;font-weight:700;color:#ddd;margin-bottom:12px;" id="recapTitle">Récapitulatif</div>
-      <div style="overflow-x:auto;"><table class="rtbl"><thead><tr><th>Date</th><th>Employé</th><th>Type</th><th>Heures</th></tr></thead><tbody id="recapBody"></tbody></table></div>
+      <div class="filter-tabs" id="recapFilterTabs"></div>
+      <div style="overflow-x:auto;">
+        <table class="rtbl"><thead><tr><th>Date</th><th>Employé</th><th>Type</th><th>Heures</th></tr></thead>
+        <tbody id="recapBody"></tbody></table>
+      </div>
       <div style="margin-top:10px;font-size:13px;color:#555;" id="recapTotal"></div>
     </div>
   </div>
 
+  <!-- CONFIG -->
   <div class="scr" id="scrConfig">
     <div class="card">
       <div style="font-size:14px;font-weight:700;color:#ddd;margin-bottom:4px;">⚙ Configuration</div>
       <div class="cfg-sec">PARAMÈTRES</div>
       <div class="cfg-row"><div class="cfg-label">Heures / semaine</div><input class="cfg-input" id="cfgHSem" type="number" value="39" onchange="cfgChanged()"></div>
-      <div class="cfg-row"><div class="cfg-label">PIN Admin</div><input class="cfg-input" id="cfgAdminPin" type="password" maxlength="6" placeholder="••••" onchange="cfgChanged()"></div>
-      <div class="cfg-row"><div class="cfg-label">PIN Directeur</div><input class="cfg-input" id="cfgDirPin" type="password" maxlength="6" placeholder="••••" onchange="cfgChanged()"></div>
+      <div class="cfg-row"><div class="cfg-label">PIN Admin</div><input class="cfg-input" id="cfgAdminPin" type="password" maxlength="6" onchange="cfgChanged()"></div>
+      <div class="cfg-row"><div class="cfg-label">PIN Directeur</div><input class="cfg-input" id="cfgDirPin" type="password" maxlength="6" onchange="cfgChanged()"></div>
       <div class="cfg-sec">EMPLOYÉS & PINS</div>
       <div id="cfgEmps"></div>
       <div style="display:flex;gap:8px;margin-top:10px;">
         <input id="newEmpName" placeholder="Prénom" style="flex:1;background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:#ddd;font-size:13px;">
-        <select id="newEmpRole" style="background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:8px;color:#ddd;font-size:12px;">
-          <option value="tech">🔧 Tech</option><option value="chef">👷 Chef</option>
-        </select>
-        <input id="newEmpPin" placeholder="PIN" maxlength="6" style="width:65px;background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:8px 10px;color:#ddd;font-size:13px;text-align:center;">
-        <button onclick="addEmp()" style="background:var(--red);border:none;border-radius:8px;color:#fff;padding:8px 14px;cursor:pointer;font-size:15px;font-weight:700;">+</button>
+        <input id="newEmpPin" placeholder="PIN" maxlength="6" style="width:70px;background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:8px 10px;color:#ddd;font-size:13px;text-align:center;">
+        <button onclick="addEmp()" style="background:var(--red);border:none;border-radius:8px;color:#fff;padding:8px 14px;cursor:pointer;font-size:13px;font-weight:700;">+</button>
       </div>
       <div class="cfg-sec" style="margin-top:16px;">EXPORT</div>
       <div class="cfg-row" style="cursor:pointer;" onclick="exportCSV()"><div class="cfg-label">📥 Exporter CSV (Excel)</div><div class="cfg-val">→</div></div>
-      <div class="cfg-row" style="cursor:pointer;" onclick="exportJSON()"><div class="cfg-label">💾 Sauvegarder données</div><div class="cfg-val">→</div></div>
       <div class="cfg-row" style="cursor:pointer;" onclick="document.getElementById('importFile').click()">
-        <div class="cfg-label">📤 Importer CSV (ancien Excel)</div>
-        <div class="cfg-val">→</div>
+        <div class="cfg-label">📤 Importer JSON/CSV</div><div class="cfg-val">→</div>
       </div>
-      <input type="file" id="importFile" accept=".csv" style="display:none;" onchange="importCSV(this)">
-      <div class="cfg-sec" style="margin-top:16px;">IMPORT</div>
-      <div class="cfg-row">
-        <div class="cfg-label">📤 Importer CSV (ancien Excel)</div>
-        <button onclick="document.getElementById('importCSV').click()" style="background:#1e2a1e;border:1px solid #2a4a2a;border-radius:8px;color:#6dc96d;font-size:12px;padding:7px 12px;cursor:pointer;">Choisir fichier</button>
-        <input type="file" id="importCSV" accept=".csv" style="display:none;" onchange="handleImportCSV(this)">
-      </div>
-      <div class="cfg-row">
-        <div class="cfg-label">📤 Importer sauvegarde JSON</div>
-        <button onclick="document.getElementById('importJSON').click()" style="background:#1e2a1e;border:1px solid #2a4a2a;border-radius:8px;color:#6dc96d;font-size:12px;padding:7px 12px;cursor:pointer;">Choisir fichier</button>
-        <input type="file" id="importJSON" accept=".json" style="display:none;" onchange="handleImportJSON(this)">
-      </div>
-      <div id="importStatus" style="font-size:12px;color:#6dc96d;margin-top:4px;display:none;"></div>
+      <input type="file" id="importFile" accept=".json,.csv" style="display:none;" onchange="importFile(this)">
     </div>
     <button class="savebtn" style="background:#1e2230;color:#888;margin-top:10px;" onclick="doLogout()">🚪 Déconnexion</button>
   </div>
@@ -242,30 +310,27 @@ input[type=date]{opacity:0;height:0;width:0;position:absolute;}
 <div class="bnav" id="bnav" style="display:none;">
   <div class="bnav-item on" id="bn0" onclick="goScr(0)"><div class="ni">✏️</div><div class="nl">Saisie</div></div>
   <div class="bnav-item" id="bn1" onclick="goScr(1)"><div class="ni">📈</div><div class="nl">Mes heures</div></div>
-  <div class="bnav-item" id="bn2" onclick="goScr(2)"><div class="ni">📋</div><div class="nl">Récap</div></div>
-  <div class="bnav-item" id="bn3" onclick="goScr(3)"><div class="ni">⚙️</div><div class="nl">Config</div></div>
-</div>
-
-<div class="modal-bg" id="dirModalBg">
-  <div class="modal">
-    <div class="modal-title">🔐 Accès Admin / Directeur</div>
-    <input type="password" id="dirPinInput" placeholder="Code PIN" maxlength="6" inputmode="numeric">
-    <div class="modal-btns">
-      <button class="mbtn-c" onclick="closeDirModal()">Annuler</button>
-      <button class="mbtn-ok" onclick="checkDirPin()">Valider</button>
-    </div>
-  </div>
+  <div class="bnav-item" id="bn2" onclick="goScr(2)" style="display:none;"><div class="ni">📋</div><div class="nl">Récap</div></div>
+  <div class="bnav-item" id="bn3" onclick="goScr(3)" style="display:none;"><div class="ni">⚙️</div><div class="nl">Config</div></div>
 </div>
 
 <div class="toast" id="toast"></div>
 
+<!-- IMPORT DATA -->
+<script>
+const IMPORT_DATA = [{"date": "2026-01-12", "employe": "Romain", "type": "work", "depart": "05:15", "depart_c": "", "repas": "01:00", "retour": "16:00", "depot": "", "mins": 585, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-13", "employe": "Romain", "type": "work", "depart": "08:00", "depart_c": "", "repas": "01:00", "retour": "16:00", "depot": "", "mins": 420, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-14", "employe": "Romain", "type": "work", "depart": "08:00", "depart_c": "", "repas": "01:00", "retour": "16:00", "depot": "", "mins": 420, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-15", "employe": "Romain", "type": "work", "depart": "07:30", "depart_c": "", "repas": "01:00", "retour": "16:30", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-16", "employe": "Romain", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "13:30", "depot": "01:30", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-19", "employe": "Romain", "type": "work", "depart": "05:00", "depart_c": "", "repas": "01:00", "retour": "16:00", "depot": "", "mins": 600, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-20", "employe": "Romain", "type": "work", "depart": "07:45", "depart_c": "", "repas": "01:00", "retour": "15:30", "depot": "", "mins": 405, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-28", "employe": "Romain", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "15:45", "depot": "", "mins": 525, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-29", "employe": "Romain", "type": "work", "depart": "06:00", "depart_c": "", "repas": "00:30", "retour": "14:00", "depot": "01:00", "mins": 510, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-30", "employe": "Romain", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "11:00", "depot": "02:30", "mins": 390, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-02", "employe": "Romain", "type": "work", "depart": "06:00", "depart_c": "", "repas": "00:30", "retour": "15:30", "depot": "", "mins": 540, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-03", "employe": "Romain", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "13:30", "depot": "01:00", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-04", "employe": "Romain", "type": "work", "depart": "06:00", "depart_c": "", "repas": "00:30", "retour": "15:30", "depot": "", "mins": 540, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-05", "employe": "Romain", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "15:30", "depot": "", "mins": 510, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-06", "employe": "Romain", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "15:30", "depot": "", "mins": 510, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-09", "employe": "Romain", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "17:00", "depot": "", "mins": 600, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-10", "employe": "Romain", "type": "work", "depart": "07:30", "depart_c": "", "repas": "01:00", "retour": "16:30", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-11", "employe": "Romain", "type": "work", "depart": "07:30", "depart_c": "", "repas": "01:00", "retour": "16:30", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-12", "employe": "Romain", "type": "work", "depart": "07:30", "depart_c": "", "repas": "01:00", "retour": "16:30", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-13", "employe": "Romain", "type": "work", "depart": "07:45", "depart_c": "", "repas": "", "retour": "13:00", "depot": "", "mins": 315, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-16", "employe": "Romain", "type": "work", "depart": "05:45", "depart_c": "", "repas": "00:30", "retour": "15:15", "depot": "", "mins": 540, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-17", "employe": "Romain", "type": "work", "depart": "05:45", "depart_c": "", "repas": "00:30", "retour": "15:15", "depot": "", "mins": 540, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-18", "employe": "Romain", "type": "work", "depart": "05:30", "depart_c": "", "repas": "", "retour": "16:15", "depot": "", "mins": 645, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-19", "employe": "Romain", "type": "work", "depart": "05:30", "depart_c": "", "repas": "00:30", "retour": "13:45", "depot": "01:00", "mins": 525, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-20", "employe": "Romain", "type": "work", "depart": "05:30", "depart_c": "", "repas": "01:00", "retour": "14:45", "depot": "", "mins": 495, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-23", "employe": "Romain", "type": "work", "depart": "06:00", "depart_c": "", "repas": "", "retour": "14:30", "depot": "", "mins": 510, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-24", "employe": "Romain", "type": "work", "depart": "05:30", "depart_c": "", "repas": "", "retour": "15:15", "depot": "", "mins": 585, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-25", "employe": "Romain", "type": "work", "depart": "07:00", "depart_c": "", "repas": "01:00", "retour": "15:15", "depot": "", "mins": 435, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-26", "employe": "Romain", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:15", "depot": "01:00", "mins": 525, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-27", "employe": "Romain", "type": "work", "depart": "06:00", "depart_c": "", "repas": "00:45", "retour": "14:00", "depot": "", "mins": 435, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-02", "employe": "Romain", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-05", "employe": "Romain", "type": "work", "depart": "07:00", "depart_c": "", "repas": "00:40", "retour": "14:45", "depot": "", "mins": 425, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-06", "employe": "Romain", "type": "work", "depart": "07:00", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 420, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-09", "employe": "Romain", "type": "work", "depart": "05:30", "depart_c": "", "repas": "01:00", "retour": "14:30", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-10", "employe": "Romain", "type": "work", "depart": "06:00", "depart_c": "", "repas": "", "retour": "12:00", "depot": "01:30", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-16", "employe": "Romain", "type": "work", "depart": "06:15", "depart_c": "", "repas": "01:00", "retour": "15:15", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-17", "employe": "Romain", "type": "work", "depart": "05:45", "depart_c": "", "repas": "00:45", "retour": "15:30", "depot": "", "mins": 540, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-18", "employe": "Romain", "type": "work", "depart": "05:30", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 510, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-19", "employe": "Romain", "type": "work", "depart": "05:45", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 495, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-20", "employe": "Romain", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "15:30", "depot": "", "mins": 510, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-23", "employe": "Romain", "type": "work", "depart": "05:30", "depart_c": "", "repas": "", "retour": "12:30", "depot": "01:00", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-24", "employe": "Romain", "type": "work", "depart": "05:30", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 510, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-25", "employe": "Romain", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "16:45", "depot": "", "mins": 555, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-26", "employe": "Romain", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "16:45", "depot": "", "mins": 555, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-27", "employe": "Romain", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "14:30", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-30", "employe": "Romain", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:45", "depot": "00:30", "mins": 525, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-31", "employe": "Romain", "type": "work", "depart": "06:00", "depart_c": "", "repas": "", "retour": "15:30", "depot": "", "mins": 570, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-01", "employe": "Romain", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:45", "depot": "", "mins": 495, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-02", "employe": "Romain", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-03", "employe": "Romain", "type": "work", "depart": "06:00", "depart_c": "", "repas": "", "retour": "13:30", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-06", "employe": "Romain", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "00:30", "mins": 510, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-13", "employe": "Romain", "type": "work", "depart": "05:30", "depart_c": "", "repas": "01:00", "retour": "17:30", "depot": "", "mins": 660, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-14", "employe": "Romain", "type": "work", "depart": "07:45", "depart_c": "", "repas": "01:00", "retour": "18:30", "depot": "", "mins": 585, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-15", "employe": "Romain", "type": "work", "depart": "07:30", "depart_c": "", "repas": "", "retour": "16:15", "depot": "", "mins": 525, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-16", "employe": "Romain", "type": "work", "depart": "07:30", "depart_c": "", "repas": "", "retour": "10:15", "depot": "", "mins": 165, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-28", "employe": "Romain", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-05", "employe": "Joris", "type": "work", "depart": "06:00", "depart_c": "", "repas": "00:40", "retour": "12:40", "depot": "01:30", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-08", "employe": "Joris", "type": "work", "depart": "07:30", "depart_c": "", "repas": "01:30", "retour": "16:30", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-09", "employe": "Joris", "type": "work", "depart": "06:00", "depart_c": "", "repas": "00:30", "retour": "14:50", "depot": "", "mins": 500, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-12", "employe": "Joris", "type": "work", "depart": "06:00", "depart_c": "", "repas": "", "retour": "12:15", "depot": "01:30", "mins": 465, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-13", "employe": "Joris", "type": "work", "depart": "05:45", "depart_c": "", "repas": "", "retour": "12:15", "depot": "00:45", "mins": 435, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-14", "employe": "Joris", "type": "work", "depart": "05:45", "depart_c": "", "repas": "", "retour": "14:45", "depot": "", "mins": 540, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-19", "employe": "Joris", "type": "work", "depart": "07:00", "depart_c": "", "repas": "", "retour": "15:00", "depot": "00:20", "mins": 500, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-20", "employe": "Joris", "type": "work", "depart": "07:00", "depart_c": "", "repas": "00:20", "retour": "15:50", "depot": "00:20", "mins": 530, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-21", "employe": "Joris", "type": "work", "depart": "07:00", "depart_c": "", "repas": "00:20", "retour": "15:00", "depot": "", "mins": 460, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-23", "employe": "Joris", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "13:00", "depot": "01:00", "mins": 390, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-26", "employe": "Joris", "type": "work", "depart": "06:00", "depart_c": "", "repas": "00:40", "retour": "15:30", "depot": "00:20", "mins": 550, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-27", "employe": "Joris", "type": "work", "depart": "06:00", "depart_c": "", "repas": "00:20", "retour": "14:00", "depot": "01:00", "mins": 520, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-28", "employe": "Joris", "type": "work", "depart": "06:00", "depart_c": "", "repas": "", "retour": "12:15", "depot": "02:00", "mins": 495, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-29", "employe": "Joris", "type": "work", "depart": "06:00", "depart_c": "", "repas": "00:30", "retour": "14:00", "depot": "01:00", "mins": 510, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-30", "employe": "Joris", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "11:00", "depot": "02:30", "mins": 390, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-02", "employe": "Joris", "type": "work", "depart": "06:00", "depart_c": "", "repas": "00:30", "retour": "15:30", "depot": "", "mins": 540, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-03", "employe": "Joris", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "13:30", "depot": "01:00", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-04", "employe": "Joris", "type": "work", "depart": "06:00", "depart_c": "", "repas": "00:30", "retour": "15:30", "depot": "", "mins": 540, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-05", "employe": "Joris", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "15:30", "depot": "", "mins": 510, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-06", "employe": "Joris", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "15:30", "depot": "", "mins": 510, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-09", "employe": "Joris", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "17:00", "depot": "", "mins": 600, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-10", "employe": "Joris", "type": "work", "depart": "07:30", "depart_c": "", "repas": "01:00", "retour": "16:30", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-11", "employe": "Joris", "type": "work", "depart": "07:30", "depart_c": "", "repas": "01:00", "retour": "16:30", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-12", "employe": "Joris", "type": "work", "depart": "07:30", "depart_c": "", "repas": "01:00", "retour": "16:30", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-13", "employe": "Joris", "type": "work", "depart": "07:45", "depart_c": "", "repas": "", "retour": "13:00", "depot": "", "mins": 315, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-16", "employe": "Joris", "type": "work", "depart": "05:45", "depart_c": "", "repas": "00:30", "retour": "15:15", "depot": "", "mins": 540, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-17", "employe": "Joris", "type": "work", "depart": "05:45", "depart_c": "", "repas": "00:30", "retour": "15:15", "depot": "", "mins": 540, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-18", "employe": "Joris", "type": "work", "depart": "06:00", "depart_c": "", "repas": "", "retour": "16:15", "depot": "", "mins": 615, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-19", "employe": "Joris", "type": "work", "depart": "05:30", "depart_c": "", "repas": "00:30", "retour": "13:45", "depot": "01:00", "mins": 525, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-20", "employe": "Joris", "type": "work", "depart": "05:45", "depart_c": "", "repas": "01:00", "retour": "14:45", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-23", "employe": "Joris", "type": "work", "depart": "06:00", "depart_c": "", "repas": "", "retour": "14:30", "depot": "", "mins": 510, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-24", "employe": "Joris", "type": "work", "depart": "05:30", "depart_c": "", "repas": "", "retour": "12:30", "depot": "", "mins": 420, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-25", "employe": "Joris", "type": "work", "depart": "07:00", "depart_c": "", "repas": "01:00", "retour": "15:15", "depot": "00:30", "mins": 465, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-26", "employe": "Joris", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:15", "depot": "00:15", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-27", "employe": "Joris", "type": "work", "depart": "06:00", "depart_c": "", "repas": "00:45", "retour": "14:00", "depot": "", "mins": 435, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-02", "employe": "Joris", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-03", "employe": "Joris", "type": "work", "depart": "05:45", "depart_c": "", "repas": "", "retour": "14:15", "depot": "01:00", "mins": 570, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-04", "employe": "Joris", "type": "work", "depart": "07:00", "depart_c": "", "repas": "01:00", "retour": "16:00", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-05", "employe": "Joris", "type": "work", "depart": "07:00", "depart_c": "", "repas": "00:40", "retour": "14:45", "depot": "", "mins": 425, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-06", "employe": "Joris", "type": "work", "depart": "07:00", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 420, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-09", "employe": "Joris", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "14:30", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-10", "employe": "Joris", "type": "work", "depart": "05:50", "depart_c": "", "repas": "", "retour": "12:00", "depot": "01:30", "mins": 460, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-11", "employe": "Joris", "type": "work", "depart": "05:30", "depart_c": "", "repas": "01:00", "retour": "14:30", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-12", "employe": "Joris", "type": "work", "depart": "07:00", "depart_c": "", "repas": "01:00", "retour": "14:45", "depot": "", "mins": 405, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-13", "employe": "Joris", "type": "work", "depart": "07:00", "depart_c": "", "repas": "01:15", "retour": "16:00", "depot": "", "mins": 465, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-16", "employe": "Joris", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "16:15", "depot": "", "mins": 555, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-17", "employe": "Joris", "type": "work", "depart": "07:00", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "00:45", "mins": 465, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-18", "employe": "Joris", "type": "work", "depart": "07:00", "depart_c": "", "repas": "01:00", "retour": "15:15", "depot": "00:30", "mins": 465, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-19", "employe": "Joris", "type": "work", "depart": "05:50", "depart_c": "", "repas": "01:00", "retour": "15:15", "depot": "", "mins": 505, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-20", "employe": "Joris", "type": "work", "depart": "07:00", "depart_c": "", "repas": "01:00", "retour": "15:30", "depot": "00:30", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-23", "employe": "Joris", "type": "work", "depart": "06:30", "depart_c": "", "repas": "", "retour": "12:30", "depot": "01:00", "mins": 420, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-24", "employe": "Joris", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-25", "employe": "Joris", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "16:45", "depot": "", "mins": 555, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-26", "employe": "Joris", "type": "work", "depart": "06:00", "depart_c": "", "repas": "", "retour": "12:30", "depot": "00:30", "mins": 420, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-27", "employe": "Joris", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "14:30", "depot": "", "mins": 420, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-30", "employe": "Joris", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:45", "depot": "00:30", "mins": 525, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-31", "employe": "Joris", "type": "work", "depart": "06:00", "depart_c": "", "repas": "", "retour": "15:15", "depot": "", "mins": 555, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-01", "employe": "Joris", "type": "work", "depart": "06:30", "depart_c": "", "repas": "", "retour": "12:30", "depot": "01:00", "mins": 420, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-02", "employe": "Joris", "type": "work", "depart": "05:15", "depart_c": "", "repas": "01:00", "retour": "14:15", "depot": "00:30", "mins": 510, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-03", "employe": "Joris", "type": "work", "depart": "07:00", "depart_c": "", "repas": "00:30", "retour": "16:30", "depot": "", "mins": 540, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-07", "employe": "Joris", "type": "work", "depart": "09:00", "depart_c": "", "repas": "01:00", "retour": "17:00", "depot": "", "mins": 420, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-08", "employe": "Joris", "type": "work", "depart": "09:00", "depart_c": "", "repas": "01:00", "retour": "17:00", "depot": "", "mins": 420, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-09", "employe": "Joris", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:15", "depot": "", "mins": 465, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-10", "employe": "Joris", "type": "work", "depart": "07:00", "depart_c": "", "repas": "01:00", "retour": "16:00", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-13", "employe": "Joris", "type": "work", "depart": "05:30", "depart_c": "", "repas": "01:00", "retour": "17:30", "depot": "", "mins": 660, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-14", "employe": "Joris", "type": "work", "depart": "07:45", "depart_c": "", "repas": "01:00", "retour": "18:30", "depot": "", "mins": 585, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-15", "employe": "Joris", "type": "work", "depart": "07:30", "depart_c": "", "repas": "", "retour": "16:15", "depot": "", "mins": 525, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-16", "employe": "Joris", "type": "work", "depart": "07:30", "depart_c": "", "repas": "", "retour": "10:15", "depot": "", "mins": 165, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-17", "employe": "Joris", "type": "work", "depart": "08:00", "depart_c": "", "repas": "01:00", "retour": "16:00", "depot": "", "mins": 420, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-21", "employe": "Joris", "type": "work", "depart": "07:00", "depart_c": "", "repas": "01:00", "retour": "16:00", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-22", "employe": "Joris", "type": "work", "depart": "06:00", "depart_c": "", "repas": "", "retour": "13:00", "depot": "00:30", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-23", "employe": "Joris", "type": "work", "depart": "07:00", "depart_c": "", "repas": "01:00", "retour": "15:45", "depot": "", "mins": 465, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-24", "employe": "Joris", "type": "work", "depart": "06:00", "depart_c": "", "repas": "", "retour": "12:45", "depot": "", "mins": 405, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-28", "employe": "Joris", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-05", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "14:00", "depot": "", "mins": 390, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-08", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "13:00", "depot": "", "mins": 330, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-12", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:30", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-13", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "14:00", "depot": "", "mins": 390, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-14", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "14:40", "depot": "", "mins": 430, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-15", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "16:00", "depot": "", "mins": 510, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-16", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-21", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-22", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "16:00", "depot": "", "mins": 510, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-23", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "14:30", "depot": "", "mins": 420, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-26", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "00:30", "retour": "14:30", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-27", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "00:30", "retour": "15:00", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-28", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-29", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "00:30", "retour": "14:30", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-30", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "00:30", "retour": "13:30", "depot": "", "mins": 390, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-02", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-03", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:30", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-04", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-05", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-06", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-09", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "14:40", "depot": "", "mins": 430, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-10", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-11", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-12", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:30", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-13", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:30", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-16", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-17", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:30", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-18", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-19", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "14:30", "depot": "", "mins": 420, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-20", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-02", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-03", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:30", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-04", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "14:30", "depot": "", "mins": 420, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-05", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "14:40", "depot": "", "mins": 430, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-06", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "14:40", "depot": "", "mins": 430, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-09", "employe": "Maxime", "type": "work", "depart": "07:00", "depart_c": "", "repas": "01:00", "retour": "17:00", "depot": "", "mins": 540, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-10", "employe": "Maxime", "type": "work", "depart": "07:00", "depart_c": "", "repas": "01:00", "retour": "16:30", "depot": "", "mins": 510, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-11", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:30", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-12", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-13", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:30", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-16", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-17", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-18", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "14:30", "depot": "", "mins": 420, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-19", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:40", "depot": "", "mins": 490, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-20", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:30", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-23", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "00:30", "retour": "14:40", "depot": "", "mins": 460, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-24", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "14:40", "depot": "", "mins": 430, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-25", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "00:40", "retour": "15:00", "depot": "", "mins": 470, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-26", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "14:30", "depot": "", "mins": 420, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-27", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "00:20", "retour": "14:30", "depot": "", "mins": 460, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-30", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "16:30", "depot": "", "mins": 540, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-31", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "16:30", "depot": "", "mins": 540, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-01", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:30", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-02", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "14:40", "depot": "", "mins": 430, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-03", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "", "retour": "14:00", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-07", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-08", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "", "retour": "13:30", "depot": "", "mins": 420, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-09", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "", "retour": "15:30", "depot": "", "mins": 540, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-10", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "", "retour": "15:00", "depot": "", "mins": 510, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-13", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "", "retour": "14:30", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-14", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "14:30", "depot": "", "mins": 420, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-15", "employe": "Maxime", "type": "work", "depart": "06:00", "depart_c": "", "repas": "00:30", "retour": "19:00", "depot": "", "mins": 750, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-16", "employe": "Maxime", "type": "work", "depart": "07:00", "depart_c": "", "repas": "00:30", "retour": "17:00", "depot": "", "mins": 570, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-17", "employe": "Maxime", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "14:00", "depot": "", "mins": 420, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-28", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "00:30", "retour": "13:30", "depot": "", "mins": 390, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-29", "employe": "Maxime", "type": "work", "depart": "06:30", "depart_c": "", "repas": "00:30", "retour": "14:00", "depot": "", "mins": 420, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-16", "employe": "Quentin", "type": "work", "depart": "05:45", "depart_c": "", "repas": "00:30", "retour": "15:15", "depot": "", "mins": 540, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-17", "employe": "Quentin", "type": "work", "depart": "05:45", "depart_c": "", "repas": "00:30", "retour": "15:15", "depot": "", "mins": 540, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-18", "employe": "Quentin", "type": "work", "depart": "05:30", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 510, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-19", "employe": "Quentin", "type": "work", "depart": "05:30", "depart_c": "", "repas": "01:00", "retour": "14:30", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-24", "employe": "Quentin", "type": "work", "depart": "05:20", "depart_c": "", "repas": "", "retour": "12:30", "depot": "", "mins": 430, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-13", "employe": "Quentin", "type": "work", "depart": "05:30", "depart_c": "", "repas": "00:30", "retour": "19:30", "depot": "", "mins": 810, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-14", "employe": "Quentin", "type": "work", "depart": "07:30", "depart_c": "", "repas": "01:00", "retour": "18:00", "depot": "", "mins": 570, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-15", "employe": "Quentin", "type": "work", "depart": "07:30", "depart_c": "", "repas": "00:30", "retour": "19:00", "depot": "", "mins": 660, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-16", "employe": "Quentin", "type": "work", "depart": "07:00", "depart_c": "", "repas": "00:30", "retour": "17:00", "depot": "", "mins": 570, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-17", "employe": "Quentin", "type": "work", "depart": "07:30", "depart_c": "", "repas": "00:00", "retour": "14:00", "depot": "", "mins": 390, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-05", "employe": "Agostinho", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "14:00", "depot": "", "mins": 390, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-08", "employe": "Agostinho", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "13:00", "depot": "", "mins": 330, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-12", "employe": "Agostinho", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:30", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-13", "employe": "Agostinho", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "14:00", "depot": "", "mins": 390, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-14", "employe": "Agostinho", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "14:40", "depot": "", "mins": 430, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-15", "employe": "Agostinho", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "16:00", "depot": "", "mins": 510, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-16", "employe": "Agostinho", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-19", "employe": "Agostinho", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-20", "employe": "Agostinho", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-21", "employe": "Agostinho", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-22", "employe": "Agostinho", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "16:00", "depot": "", "mins": 510, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-23", "employe": "Agostinho", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "14:30", "depot": "", "mins": 420, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-26", "employe": "Agostinho", "type": "work", "depart": "06:30", "depart_c": "", "repas": "00:30", "retour": "14:30", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-27", "employe": "Agostinho", "type": "work", "depart": "06:30", "depart_c": "", "repas": "00:30", "retour": "15:00", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-28", "employe": "Agostinho", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-29", "employe": "Agostinho", "type": "work", "depart": "06:30", "depart_c": "", "repas": "00:30", "retour": "14:30", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-30", "employe": "Agostinho", "type": "work", "depart": "06:30", "depart_c": "", "repas": "00:30", "retour": "13:30", "depot": "", "mins": 390, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-02", "employe": "Agostinho", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-03", "employe": "Agostinho", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:30", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-04", "employe": "Agostinho", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-05", "employe": "Agostinho", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-09", "employe": "Agostinho", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "14:40", "depot": "", "mins": 430, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-10", "employe": "Agostinho", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-11", "employe": "Agostinho", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-12", "employe": "Agostinho", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:30", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-13", "employe": "Agostinho", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:30", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-16", "employe": "Agostinho", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-17", "employe": "Agostinho", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:30", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-18", "employe": "Agostinho", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-19", "employe": "Agostinho", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "14:30", "depot": "", "mins": 420, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-20", "employe": "Agostinho", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-02", "employe": "Agostinho", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-03", "employe": "Agostinho", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:30", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-04", "employe": "Agostinho", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "14:30", "depot": "", "mins": 420, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-05", "employe": "Agostinho", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "14:40", "depot": "", "mins": 430, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-06", "employe": "Agostinho", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "14:40", "depot": "", "mins": 430, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-09", "employe": "Agostinho", "type": "work", "depart": "07:00", "depart_c": "", "repas": "01:00", "retour": "17:00", "depot": "", "mins": 540, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-10", "employe": "Agostinho", "type": "work", "depart": "07:00", "depart_c": "", "repas": "01:00", "retour": "16:30", "depot": "", "mins": 510, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-11", "employe": "Agostinho", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:30", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-12", "employe": "Agostinho", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-13", "employe": "Agostinho", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:30", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-23", "employe": "Agostinho", "type": "work", "depart": "06:30", "depart_c": "", "repas": "00:30", "retour": "14:40", "depot": "", "mins": 460, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-24", "employe": "Agostinho", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "14:40", "depot": "", "mins": 430, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-25", "employe": "Agostinho", "type": "work", "depart": "06:30", "depart_c": "", "repas": "00:40", "retour": "15:00", "depot": "", "mins": 470, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-26", "employe": "Agostinho", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "14:30", "depot": "", "mins": 420, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-27", "employe": "Agostinho", "type": "work", "depart": "06:30", "depart_c": "", "repas": "00:20", "retour": "14:30", "depot": "", "mins": 460, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-30", "employe": "Agostinho", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "14:40", "depot": "", "mins": 430, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-31", "employe": "Agostinho", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-01", "employe": "Agostinho", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "14:30", "depot": "", "mins": 420, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-02", "employe": "Agostinho", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "14:40", "depot": "", "mins": 430, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-03", "employe": "Agostinho", "type": "work", "depart": "06:30", "depart_c": "", "repas": "", "retour": "14:00", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-07", "employe": "Agostinho", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-08", "employe": "Agostinho", "type": "work", "depart": "06:30", "depart_c": "", "repas": "", "retour": "13:30", "depot": "", "mins": 420, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-09", "employe": "Agostinho", "type": "work", "depart": "06:30", "depart_c": "", "repas": "", "retour": "15:30", "depot": "", "mins": 540, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-10", "employe": "Agostinho", "type": "work", "depart": "06:30", "depart_c": "", "repas": "", "retour": "15:00", "depot": "", "mins": 510, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-13", "employe": "Agostinho", "type": "work", "depart": "06:30", "depart_c": "", "repas": "", "retour": "14:30", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-14", "employe": "Agostinho", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "14:30", "depot": "", "mins": 420, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-15", "employe": "Agostinho", "type": "work", "depart": "06:30", "depart_c": "", "repas": "00:30", "retour": "19:00", "depot": "", "mins": 720, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-16", "employe": "Agostinho", "type": "work", "depart": "07:00", "depart_c": "", "repas": "00:30", "retour": "17:00", "depot": "", "mins": 570, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-17", "employe": "Agostinho", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "14:00", "depot": "", "mins": 420, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-20", "employe": "Agostinho", "type": "work", "depart": "06:15", "depart_c": "", "repas": "", "retour": "14:30", "depot": "", "mins": 495, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-28", "employe": "Agostinho", "type": "work", "depart": "06:30", "depart_c": "", "repas": "00:30", "retour": "13:30", "depot": "", "mins": 390, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-29", "employe": "Agostinho", "type": "work", "depart": "06:30", "depart_c": "", "repas": "00:30", "retour": "14:00", "depot": "", "mins": 420, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-05", "employe": "Kevin", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "14:00", "depot": "", "mins": 390, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-08", "employe": "Kevin", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "13:00", "depot": "", "mins": 330, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-12", "employe": "Kevin", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:30", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-13", "employe": "Kevin", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "14:00", "depot": "", "mins": 390, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-14", "employe": "Kevin", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "14:40", "depot": "", "mins": 430, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-15", "employe": "Kevin", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "16:00", "depot": "", "mins": 510, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-16", "employe": "Kevin", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-19", "employe": "Kevin", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-20", "employe": "Kevin", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-21", "employe": "Kevin", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:45", "depot": "", "mins": 495, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-22", "employe": "Kevin", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "16:00", "depot": "", "mins": 510, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-23", "employe": "Kevin", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "14:30", "depot": "", "mins": 420, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-26", "employe": "Kevin", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "14:00", "depot": "", "mins": 390, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-27", "employe": "Kevin", "type": "work", "depart": "06:30", "depart_c": "", "repas": "00:45", "retour": "15:00", "depot": "", "mins": 465, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-28", "employe": "Kevin", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-29", "employe": "Kevin", "type": "work", "depart": "06:30", "depart_c": "", "repas": "00:30", "retour": "14:30", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-02", "employe": "Kevin", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-05", "employe": "Kevin", "type": "work", "depart": "06:30", "depart_c": "", "repas": "00:45", "retour": "16:00", "depot": "", "mins": 525, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-06", "employe": "Kevin", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "16:30", "depot": "", "mins": 540, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-09", "employe": "Kevin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "15:45", "depot": "", "mins": 525, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-10", "employe": "Kevin", "type": "work", "depart": "06:10", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 470, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-11", "employe": "Kevin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "15:30", "depot": "", "mins": 510, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-12", "employe": "Kevin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-13", "employe": "Kevin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "15:30", "depot": "", "mins": 510, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-16", "employe": "Kevin", "type": "work", "depart": "06:30", "depart_c": "", "repas": "", "retour": "15:30", "depot": "", "mins": 540, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-17", "employe": "Kevin", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "16:00", "depot": "", "mins": 510, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-20", "employe": "Kevin", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "16:00", "depot": "", "mins": 510, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-23", "employe": "Kevin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "14:30", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-24", "employe": "Kevin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "00:45", "retour": "15:45", "depot": "", "mins": 540, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-25", "employe": "Kevin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "00:45", "retour": "15:30", "depot": "", "mins": 525, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-26", "employe": "Kevin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-27", "employe": "Kevin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-02", "employe": "Kevin", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-03", "employe": "Kevin", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:30", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-04", "employe": "Kevin", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:30", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-05", "employe": "Kevin", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "14:40", "depot": "", "mins": 430, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-06", "employe": "Kevin", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "14:40", "depot": "", "mins": 430, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-09", "employe": "Kevin", "type": "work", "depart": "07:00", "depart_c": "", "repas": "01:00", "retour": "17:00", "depot": "", "mins": 540, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-10", "employe": "Kevin", "type": "work", "depart": "07:00", "depart_c": "", "repas": "01:00", "retour": "16:30", "depot": "", "mins": 510, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-11", "employe": "Kevin", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:30", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-12", "employe": "Kevin", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-13", "employe": "Kevin", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:30", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-16", "employe": "Kevin", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-17", "employe": "Kevin", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-18", "employe": "Kevin", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "14:45", "depot": "", "mins": 435, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-19", "employe": "Kevin", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:45", "depot": "", "mins": 495, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-20", "employe": "Kevin", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:30", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-23", "employe": "Kevin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "14:30", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-24", "employe": "Kevin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "14:15", "depot": "", "mins": 435, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-25", "employe": "Kevin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "00:45", "retour": "13:00", "depot": "", "mins": 375, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-26", "employe": "Kevin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "14:30", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-27", "employe": "Kevin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "00:45", "retour": "14:45", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-30", "employe": "Kevin", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "16:30", "depot": "", "mins": 540, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-31", "employe": "Kevin", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "16:30", "depot": "", "mins": 540, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-01", "employe": "Kevin", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:30", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-02", "employe": "Kevin", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-03", "employe": "Kevin", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "12:30", "depot": "", "mins": 300, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-06", "employe": "Kevin", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "17:00", "depot": "", "mins": 570, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-07", "employe": "Kevin", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-08", "employe": "Kevin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-09", "employe": "Kevin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-10", "employe": "Kevin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-13", "employe": "Kevin", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:30", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-14", "employe": "Kevin", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-15", "employe": "Kevin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "15:30", "depot": "", "mins": 510, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-16", "employe": "Kevin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "15:30", "depot": "", "mins": 510, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-17", "employe": "Kevin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "14:00", "depot": "", "mins": 420, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-20", "employe": "Kevin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "15:30", "depot": "", "mins": 510, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-21", "employe": "Kevin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-22", "employe": "Kevin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-23", "employe": "Kevin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "15:30", "depot": "", "mins": 510, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-24", "employe": "Kevin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-27", "employe": "Kevin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "16:00", "depot": "", "mins": 540, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-28", "employe": "Kevin", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:30", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-05", "employe": "Calvin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "00:40", "retour": "12:40", "depot": "01:30", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-06", "employe": "Calvin", "type": "work", "depart": "06:15", "depart_c": "", "repas": "00:30", "retour": "14:50", "depot": "", "mins": 485, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-08", "employe": "Calvin", "type": "work", "depart": "08:40", "depart_c": "", "repas": "01:30", "retour": "16:30", "depot": "", "mins": 380, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-09", "employe": "Calvin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "00:30", "retour": "14:50", "depot": "", "mins": 500, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-12", "employe": "Calvin", "type": "work", "depart": "05:45", "depart_c": "", "repas": "", "retour": "12:15", "depot": "01:30", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-13", "employe": "Calvin", "type": "work", "depart": "05:45", "depart_c": "", "repas": "", "retour": "12:15", "depot": "00:45", "mins": 435, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-14", "employe": "Calvin", "type": "work", "depart": "05:45", "depart_c": "", "repas": "00:15", "retour": "14:45", "depot": "", "mins": 525, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-16", "employe": "Calvin", "type": "work", "depart": "05:45", "depart_c": "", "repas": "", "retour": "13:00", "depot": "", "mins": 435, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-19", "employe": "Calvin", "type": "work", "depart": "07:00", "depart_c": "", "repas": "", "retour": "15:00", "depot": "00:20", "mins": 500, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-20", "employe": "Calvin", "type": "work", "depart": "07:00", "depart_c": "", "repas": "00:20", "retour": "15:50", "depot": "00:20", "mins": 530, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-21", "employe": "Calvin", "type": "work", "depart": "07:00", "depart_c": "", "repas": "00:20", "retour": "15:00", "depot": "", "mins": 460, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-22", "employe": "Calvin", "type": "work", "depart": "06:45", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 435, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-23", "employe": "Calvin", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "13:00", "depot": "01:00", "mins": 390, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-26", "employe": "Calvin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "00:40", "retour": "15:30", "depot": "00:20", "mins": 550, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-27", "employe": "Calvin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "00:20", "retour": "14:00", "depot": "01:00", "mins": 520, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-28", "employe": "Calvin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "", "retour": "12:15", "depot": "02:00", "mins": 495, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-29", "employe": "Calvin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "00:30", "retour": "14:15", "depot": "01:00", "mins": 525, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-01-30", "employe": "Calvin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "", "retour": "14:00", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-02", "employe": "Calvin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "00:30", "retour": "15:30", "depot": "", "mins": 540, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-03", "employe": "Calvin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "13:30", "depot": "01:00", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-04", "employe": "Calvin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "00:30", "retour": "15:30", "depot": "", "mins": 540, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-05", "employe": "Calvin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "15:30", "depot": "", "mins": 510, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-06", "employe": "Calvin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "15:30", "depot": "", "mins": 510, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-09", "employe": "Calvin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "17:00", "depot": "", "mins": 600, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-10", "employe": "Calvin", "type": "work", "depart": "07:30", "depart_c": "", "repas": "01:00", "retour": "16:30", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-11", "employe": "Calvin", "type": "work", "depart": "07:30", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 390, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-13", "employe": "Calvin", "type": "work", "depart": "05:45", "depart_c": "", "repas": "", "retour": "13:00", "depot": "", "mins": 435, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-16", "employe": "Calvin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-17", "employe": "Calvin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "15:25", "depot": "", "mins": 505, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-18", "employe": "Calvin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "16:15", "depot": "00:20", "mins": 575, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-19", "employe": "Calvin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "", "retour": "13:30", "depot": "01:00", "mins": 510, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-20", "employe": "Calvin", "type": "work", "depart": "05:45", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 495, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-23", "employe": "Calvin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "", "retour": "13:00", "depot": "02:00", "mins": 540, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-24", "employe": "Calvin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "", "retour": "15:15", "depot": "", "mins": 555, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-25", "employe": "Calvin", "type": "work", "depart": "07:00", "depart_c": "", "repas": "01:00", "retour": "15:15", "depot": "", "mins": 435, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-26", "employe": "Calvin", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:15", "depot": "01:00", "mins": 525, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-02-27", "employe": "Calvin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-02", "employe": "Calvin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "", "retour": "14:20", "depot": "00:25", "mins": 525, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-03", "employe": "Calvin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "", "retour": "14:00", "depot": "00:40", "mins": 520, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-04", "employe": "Calvin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "", "retour": "14:40", "depot": "", "mins": 520, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-05", "employe": "Calvin", "type": "work", "depart": "07:00", "depart_c": "", "repas": "01:00", "retour": "14:40", "depot": "", "mins": 400, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-06", "employe": "Calvin", "type": "work", "depart": "07:00", "depart_c": "", "repas": "", "retour": "13:00", "depot": "01:30", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-09", "employe": "Calvin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "", "retour": "14:45", "depot": "", "mins": 525, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-10", "employe": "Calvin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "", "retour": "12:30", "depot": "02:00", "mins": 510, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-11", "employe": "Calvin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "", "retour": "14:55", "depot": "01:00", "mins": 595, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-12", "employe": "Calvin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "", "retour": "14:40", "depot": "00:30", "mins": 550, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-13", "employe": "Calvin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "", "retour": "12:00", "depot": "01:00", "mins": 420, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-16", "employe": "Calvin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "", "retour": "16:00", "depot": "", "mins": 600, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-17", "employe": "Calvin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "", "retour": "15:20", "depot": "00:45", "mins": 605, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-18", "employe": "Calvin", "type": "work", "depart": "07:00", "depart_c": "", "repas": "01:00", "retour": "15:10", "depot": "00:50", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-19", "employe": "Calvin", "type": "work", "depart": "07:00", "depart_c": "", "repas": "", "retour": "16:15", "depot": "", "mins": 555, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-20", "employe": "Calvin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "15:30", "depot": "", "mins": 510, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-23", "employe": "Calvin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-24", "employe": "Calvin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "", "retour": "14:00", "depot": "01:20", "mins": 560, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-25", "employe": "Calvin", "type": "work", "depart": "05:40", "depart_c": "", "repas": "", "retour": "13:30", "depot": "00:40", "mins": 510, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-26", "employe": "Calvin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "", "retour": "11:40", "depot": "02:00", "mins": 460, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-27", "employe": "Calvin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "", "retour": "14:40", "depot": "", "mins": 520, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-08", "employe": "Calvin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-13", "employe": "Calvin", "type": "work", "depart": "07:00", "depart_c": "", "repas": "01:00", "retour": "16:10", "depot": "", "mins": 490, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-14", "employe": "Calvin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "14:30", "depot": "01:00", "mins": 510, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-15", "employe": "Calvin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-16", "employe": "Calvin", "type": "work", "depart": "07:00", "depart_c": "", "repas": "00:20", "retour": "16:20", "depot": "", "mins": 540, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-17", "employe": "Calvin", "type": "work", "depart": "07:30", "depart_c": "", "repas": "00:30", "retour": "17:00", "depot": "", "mins": 540, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-20", "employe": "Calvin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "", "retour": "13:30", "depot": "00:30", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-21", "employe": "Calvin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "", "retour": "10:30", "depot": "02:30", "mins": 420, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-22", "employe": "Calvin", "type": "work", "depart": "07:00", "depart_c": "", "repas": "01:00", "retour": "15:20", "depot": "01:00", "mins": 500, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-23", "employe": "Calvin", "type": "work", "depart": "07:00", "depart_c": "", "repas": "", "retour": "14:40", "depot": "01:00", "mins": 520, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-24", "employe": "Calvin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "", "retour": "14:20", "depot": "", "mins": 500, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-27", "employe": "Calvin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "14:20", "depot": "01:00", "mins": 500, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-28", "employe": "Calvin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-29", "employe": "Calvin", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-02", "employe": "Damien", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-03", "employe": "Damien", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:30", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-04", "employe": "Damien", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:30", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-05", "employe": "Damien", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "14:40", "depot": "", "mins": 430, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-06", "employe": "Damien", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "14:40", "depot": "", "mins": 430, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-09", "employe": "Damien", "type": "work", "depart": "07:00", "depart_c": "", "repas": "01:00", "retour": "17:00", "depot": "", "mins": 540, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-10", "employe": "Damien", "type": "work", "depart": "07:00", "depart_c": "", "repas": "01:00", "retour": "16:30", "depot": "", "mins": 510, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-11", "employe": "Damien", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:30", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-12", "employe": "Damien", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-13", "employe": "Damien", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:30", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-16", "employe": "Damien", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-17", "employe": "Damien", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-18", "employe": "Damien", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "14:45", "depot": "", "mins": 435, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-19", "employe": "Damien", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:45", "depot": "", "mins": 495, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-20", "employe": "Damien", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:30", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-23", "employe": "Damien", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "14:30", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-24", "employe": "Damien", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "14:15", "depot": "", "mins": 435, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-25", "employe": "Damien", "type": "work", "depart": "06:00", "depart_c": "", "repas": "00:45", "retour": "13:00", "depot": "", "mins": 375, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-26", "employe": "Damien", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "14:30", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-27", "employe": "Damien", "type": "work", "depart": "06:00", "depart_c": "", "repas": "00:45", "retour": "14:45", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-30", "employe": "Damien", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "14:40", "depot": "", "mins": 430, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-03-31", "employe": "Damien", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-01", "employe": "Damien", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "14:30", "depot": "", "mins": 420, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-02", "employe": "Damien", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-03", "employe": "Damien", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "12:30", "depot": "", "mins": 300, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-06", "employe": "Damien", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "17:00", "depot": "", "mins": 570, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-07", "employe": "Damien", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-08", "employe": "Damien", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-09", "employe": "Damien", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-10", "employe": "Damien", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-13", "employe": "Damien", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:30", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-14", "employe": "Damien", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 450, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-15", "employe": "Damien", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "15:30", "depot": "", "mins": 510, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-16", "employe": "Damien", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "15:30", "depot": "", "mins": 510, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-17", "employe": "Damien", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "14:00", "depot": "", "mins": 420, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-20", "employe": "Damien", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "15:30", "depot": "", "mins": 510, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-21", "employe": "Damien", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-22", "employe": "Damien", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-23", "employe": "Damien", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "15:30", "depot": "", "mins": 510, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-24", "employe": "Damien", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "15:00", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-27", "employe": "Damien", "type": "work", "depart": "06:00", "depart_c": "", "repas": "01:00", "retour": "16:00", "depot": "", "mins": 540, "saved_at": "2026-01-01T00:00:00.000Z"}, {"date": "2026-04-28", "employe": "Damien", "type": "work", "depart": "06:30", "depart_c": "", "repas": "01:00", "retour": "15:30", "depot": "", "mins": 480, "saved_at": "2026-01-01T00:00:00.000Z"}];
+</script>
+
+<!-- FIREBASE -->
 <script type="module">
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
 import { getFirestore, doc, getDoc, setDoc, collection, getDocs } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
 
 const FB={apiKey:"AIzaSyBY9OqXcULhxNRy13OJKNKQbJhomn1SBOc",authDomain:"kompan-39b54.firebaseapp.com",projectId:"kompan-39b54",storageBucket:"kompan-39b54.firebasestorage.app",messagingSenderId:"897540827503",appId:"1:897540827503:web:87ff1bce1a1c21c551209a"};
-const app=initializeApp(FB); const db=getFirestore(app);
-window._db=db; window._fs={doc,getDoc,setDoc,collection,getDocs};
+const app=initializeApp(FB);
+const db=getFirestore(app);
+window._db=db;
+window._fs={doc,setDoc,collection};
 
 const DEF={
   employes:["Romain","Joris","Tom","Maxime","Quentin","Agostinho","Kevin","Calvin","Damien"],
@@ -276,130 +341,144 @@ const DEF={
 
 window.fbLoad=async function(){
   try{
-    setSS('spin');
+    window.setSS&&window.setSS('spin');
     const s=await getDoc(doc(db,'config','main'));
-    window.CFG=s.exists()?{...DEF,...s.data()}:DEF;
+    window.CFG=s.exists()?s.data():DEF;
     if(!s.exists()) await setDoc(doc(db,'config','main'),DEF);
+    if(!window.CFG.roles) window.CFG.roles={};
+    window.CFG.roles['Romain']='admin';
     const es=await getDocs(collection(db,'entries'));
-    window.ENT=[];es.forEach(d=>window.ENT.push({id:d.id,...d.data()}));
-    setSS('ok');
-  }catch(e){setSS('err');window.CFG=window.CFG||DEF;window.ENT=window.ENT||[];}
+    window.ENT=[];
+    es.forEach(d=>window.ENT.push({id:d.id,...d.data()}));
+    // Données historiques disponibles via bouton Config > Importer
+    window.setSS&&window.setSS('ok');
+  }catch(e){
+    console.log('Firebase error:',e);
+    window.setSS&&window.setSS('err');
+    window.CFG=window.CFG||DEF;
+    if(!window.ENT)window.ENT=[];
+  }
 };
 
 window.fbSaveEntry=async function(entry){
   const id=entry.date+'_'+entry.employe.replace(/\s/g,'_');
   try{
-    setSS('spin');
+    window.setSS&&window.setSS('spin');
     await setDoc(doc(db,'entries',id),entry);
     const i=window.ENT.findIndex(e=>e.id===id);
     if(i>=0)window.ENT[i]={id,...entry};else window.ENT.push({id,...entry});
-    setSS('ok');return true;
-  }catch(e){setSS('err');return false;}
+    window.setSS&&window.setSS('ok');return true;
+  }catch(e){window.setSS&&window.setSS('err');return false;}
 };
 
 window.fbSaveCfg=async function(){
-  try{await setDoc(doc(db,'config','main'),window.CFG);setSS('ok');}catch(e){setSS('err');}
+  try{await setDoc(doc(db,'config','main'),window.CFG);window.setSS&&window.setSS('ok');}
+  catch(e){window.setSS&&window.setSS('err');}
 };
 
 window.addEventListener('load',async()=>{
-  // Timeout 5s max pour le chargement
-  const timeout = new Promise(resolve => setTimeout(resolve, 5000));
-  await Promise.race([window.fbLoad(), timeout]);
+  try{
+    const timeout=new Promise(resolve=>setTimeout(resolve,5000));
+    await Promise.race([window.fbLoad(),timeout]);
+  }catch(e){}
   document.getElementById('loadingScreen').style.display='none';
   document.getElementById('loginScreen').style.display='flex';
   buildEmpGrid();
-  setInterval(async()=>{await window.fbLoad();refreshCurScr();},30000);
+  setInterval(async()=>{try{await window.fbLoad();refreshCurScr();}catch(e){}},60000);
 });
 </script>
 
 <script>
-let ME=null,selEmps=[],selType='work',curMonth=new Date().getMonth(),curYear=new Date().getFullYear(),pinBuf='',curScrIdx=0;
+let ME=null,selEmps=[],selType='work',curMonth=new Date().getMonth(),curYear=new Date().getFullYear(),pinBuf='',dirBuf='',curScrIdx=0,recapFilter='tous';
 const MONTHS=['Jan','Fév','Mar','Avr','Mai','Jui','Jul','Aoû','Sep','Oct','Nov','Déc'];
 const MFULL=['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
 const DAYS=['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'];
 
-// Rôle → icône emoji
-function roleIcon(r){return r==='admin'?'⭐':r==='chef'?'👷':'🔧';}
-
-function setSS(s){
+window.setSS=function(s){
   const d=document.getElementById('sdot'),l=document.getElementById('slbl');
   if(!d)return;
   d.className='sdot'+(s==='ok'?' ok':s==='spin'?' spin':'');
   l.textContent=s==='ok'?'sync ✓':s==='spin'?'sync...':'hors ligne';
-}
-async function doSync(){setSS('spin');await window.fbLoad();refreshCurScr();showToast('Synchronisé ✓');}
+};
+async function doSync(){window.setSS('spin');try{await window.fbLoad();}catch(e){}refreshCurScr();showToast('Synchronisé ✓');}
+
+function roleIcon(r){return r==='admin'?'⭐':r==='chef'?'👷':'🔧';}
 
 function buildEmpGrid(){
   const g=document.getElementById('empGrid');g.innerHTML='';
   const emps=(window.CFG||{}).employes||[];
   emps.forEach(name=>{
     const role=((window.CFG||{}).roles||{})[name]||'tech';
-    const ri=roleIcon(role);
     const d=document.createElement('div');d.className='emp-card';
-    d.innerHTML=`
-      <div class="emp-av">
-        ${name.slice(0,2).toUpperCase()}
-        <div class="role-badge">${ri}</div>
-      </div>
-      <div class="emp-nm">${name}</div>`;
-    d.onclick=()=>{
-      document.querySelectorAll('.emp-card').forEach(c=>c.classList.remove('sel'));
-      d.classList.add('sel');ME={name,role};pinBuf='';updPD();
-      document.getElementById('pinErr').textContent='';
-    };
+    d.innerHTML=`<div class="emp-av">${name.slice(0,2).toUpperCase()}<span class="role-badge">${roleIcon(role)}</span></div><div class="emp-nm">${name}</div>`;
+    d.onclick=()=>openPinModal(name,role);
     g.appendChild(d);
   });
 }
 
+// PIN MODAL
+function openPinModal(name,role){
+  ME={name,role};pinBuf='';
+  document.getElementById('pinModalName').textContent=name;
+  document.getElementById('pinErr').textContent='';
+  updPD('pd',0);
+  document.getElementById('pinModal').classList.add('open');
+}
+function closePinModal(){document.getElementById('pinModal').classList.remove('open');ME=null;pinBuf='';}
+function openDirModal(){dirBuf='';document.getElementById('dirPinErr').textContent='';updPD('dp',0);document.getElementById('dirModal').classList.add('open');}
+function closeDirModal(){document.getElementById('dirModal').classList.remove('open');dirBuf='';}
+
 function kp(v){
-  if(v==='clr'){pinBuf='';updPD();return;}
-  if(v==='del'){pinBuf=pinBuf.slice(0,-1);updPD();return;}
+  if(v==='clr'){pinBuf='';updPD('pd',0);return;}
+  if(v==='del'){pinBuf=pinBuf.slice(0,-1);updPD('pd',pinBuf.length);return;}
   if(pinBuf.length>=4)return;
-  pinBuf+=v;updPD();
+  pinBuf+=v;updPD('pd',pinBuf.length);
   if(pinBuf.length===4)setTimeout(checkPin,200);
 }
-function updPD(){for(let i=0;i<4;i++)document.getElementById('pd'+i).className='pin-dot'+(i<pinBuf.length?' on':'');}
+function dkp(v){
+  if(v==='clr'){dirBuf='';updPD('dp',0);return;}
+  if(v==='del'){dirBuf=dirBuf.slice(0,-1);updPD('dp',dirBuf.length);return;}
+  if(dirBuf.length>=4)return;
+  dirBuf+=v;updPD('dp',dirBuf.length);
+  if(dirBuf.length===4)setTimeout(checkDirPin,200);
+}
+function updPD(prefix,len){for(let i=0;i<4;i++){const el=document.getElementById(prefix+i);if(el)el.className='pin-dot'+(i<len?' on':'');}}
 
 function checkPin(){
-  if(!ME){document.getElementById('pinErr').textContent='Sélectionnez votre prénom';pinBuf='';updPD();return;}
-  const adminGlobalPin=(window.CFG||{}).pin||'1601';
-  const userPin=((window.CFG||{}).userPins||{})[ME.name];
-  const correct=userPin||adminGlobalPin;
-  if(pinBuf===correct){
-    // Si le PIN entré = PIN admin global → accès admin complet
-    if(pinBuf===adminGlobalPin && !userPin) ME.role='admin';
-    doLogin();
-  } else{document.getElementById('pinErr').textContent='Code PIN incorrect ✗';pinBuf='';updPD();}
+  const correct=((window.CFG||{}).userPins||{})[ME.name]||(window.CFG||{}).pin||'1601';
+  if(pinBuf===correct){document.getElementById('pinModal').classList.remove('open');doLogin();}
+  else{document.getElementById('pinErr').textContent='Code PIN incorrect ✗';pinBuf='';updPD('pd',0);}
 }
-
-function openDirModal(){document.getElementById('dirModalBg').classList.add('open');document.getElementById('dirPinInput').value='';}
-function closeDirModal(){document.getElementById('dirModalBg').classList.remove('open');}
 function checkDirPin(){
-  const v=document.getElementById('dirPinInput').value;
   const ap=(window.CFG||{}).pin||'1601',dp=(window.CFG||{}).dirPin||'9999';
-  if(v===ap){ME={name:'Romain',role:'admin'};closeDirModal();doLogin();}
-  else if(v===dp){ME={name:'Directeur',role:'dir'};closeDirModal();doLogin();}
-  else showToast('PIN incorrect','err');
+  if(dirBuf===ap){ME={name:'Romain',role:'admin'};closeDirModal();doLogin();}
+  else if(dirBuf===dp){ME={name:'Directeur',role:'dir'};closeDirModal();doLogin();}
+  else{document.getElementById('dirPinErr').textContent='PIN incorrect ✗';dirBuf='';updPD('dp',0);}
 }
 
 function doLogin(){
   document.getElementById('loginScreen').style.display='none';
   document.getElementById('mainApp').style.display='block';
-  const r=ME.role;
-  // Afficher/cacher les onglets selon le rôle
   document.getElementById('bnav').style.display='flex';
+  const r=ME.role;
+  // Saisie: tous sauf directeur
+  document.getElementById('bn0').style.display=r==='dir'?'none':'flex';
+  // Mes heures: tous sauf directeur
+  document.getElementById('bn1').style.display=r==='dir'?'none':'flex';
+  // Recap: chef + admin + dir
   document.getElementById('bn2').style.display=(r==='chef'||r==='admin'||r==='dir')?'flex':'none';
-  document.getElementById('bn3').style.display=(r==='admin')?'flex':'none';
+  // Config: admin only
+  document.getElementById('bn3').style.display=r==='admin'?'flex':'none';
+  // Si directeur, aller direct sur recap
+  if(r==='dir') goScr(2); else goScr(0);
   initMainApp();
 }
 
 function doLogout(){
-  ME=null;selEmps=[];pinBuf='';curScrIdx=0;
+  ME=null;selEmps=[];pinBuf='';dirBuf='';curScrIdx=0;
   document.getElementById('mainApp').style.display='none';
   document.getElementById('bnav').style.display='none';
   document.getElementById('loginScreen').style.display='flex';
-  document.querySelectorAll('.emp-card').forEach(c=>c.classList.remove('sel'));
-  updPD();document.getElementById('pinErr').textContent='';
   buildEmpGrid();
 }
 
@@ -412,26 +491,21 @@ function initMainApp(){
     b.onclick=()=>{curMonth=i;document.querySelectorAll('.mbtn').forEach(x=>x.classList.remove('on'));b.classList.add('on');refreshCurScr();};
     bar.appendChild(b);
   });
-  const now2=new Date();
-  const d=String(now2.getDate()).padStart(2,'0'),mo=String(now2.getMonth()+1).padStart(2,'0'),y=now2.getFullYear();
+  const d=String(now.getDate()).padStart(2,'0'),mo=String(now.getMonth()+1).padStart(2,'0'),y=now.getFullYear();
   document.getElementById('hdate').value=`${y}-${mo}-${d}`;
   document.getElementById('dateTxt').textContent=`${d}/${mo}/${y}`;
   document.getElementById('cFrom').value=`${y}-${mo}-${d}`;document.getElementById('cFromTxt').textContent=`${d}/${mo}/${y}`;
   document.getElementById('cTo').value=`${y}-${mo}-${d}`;document.getElementById('cToTxt').textContent=`${d}/${mo}/${y}`;
   buildEmpChips();
-  goScr(0);
   loadCfgScreen();
   setDefaultTimes();
 }
 
 function setDefaultTimes(){
-  const now = new Date();
-  const hh = String(now.getHours()).padStart(2,'0');
-  const mm = String(now.getMinutes()).padStart(2,'0');
-  document.getElementById('tDep').value = '00:00';
-  document.getElementById('tDepC').value = '00:00';
-  document.getElementById('tRep').value = '00:00';
-  document.getElementById('tRet').value = '00:00';
+  document.getElementById('tDep').value='00:00';
+  document.getElementById('tDepC').value='00:00';
+  document.getElementById('tRep').value='00:00';
+  document.getElementById('tRet').value='00:00';
   calcH();
 }
 
@@ -443,22 +517,17 @@ function buildEmpChips(){
     const ch=document.createElement('button');ch.className='chip on locked';ch.textContent=ME.name;c.appendChild(ch);
     loadExisting();return;
   }
-  if(r==='dir'){selEmps=[];loadExisting();return;}
-  // Chef ou Admin : sélection multiple
+  // Chef et Admin: multi-sélection
   const emps=['Tous','Aucun',...(window.CFG.employes||[])];
   selEmps=[ME.name];
-  emps.forEach((emp,idx)=>{
+  emps.forEach(emp=>{
     const ch=document.createElement('button');
     ch.className='chip'+(emp===ME.name?' on':'');ch.textContent=emp;
     ch.onclick=()=>{
-      if(emp==='Tous')selEmps=[...(window.CFG.employes||[])];
+      if(emp==='Tous')selEmps=[...window.CFG.employes];
       else if(emp==='Aucun')selEmps=[];
       else{if(selEmps.includes(emp))selEmps=selEmps.filter(e=>e!==emp);else selEmps.push(emp);}
-      // Mettre à jour visuellement
-      c.querySelectorAll('.chip').forEach((b,i)=>{
-        const en=emps[i];
-        b.classList.toggle('on',en==='Tous'?selEmps.length===(window.CFG.employes||[]).length:selEmps.includes(en));
-      });
+      document.querySelectorAll('.chip').forEach((b,i)=>{if(i<emps.length)b.classList.toggle('on',emp==='Tous'?selEmps.length===window.CFG.employes.length:selEmps.includes(emps[i]));});
       if(selEmps.length===1)loadExisting();
     };
     c.appendChild(ch);
@@ -478,59 +547,47 @@ function onCongePeriod(){
   const f=document.getElementById('cFrom').value,t=document.getElementById('cTo').value;
   if(f){const[y,m,d]=f.split('-');document.getElementById('cFromTxt').textContent=`${d}/${m}/${y}`;}
   if(t){const[y,m,d]=t.split('-');document.getElementById('cToTxt').textContent=`${d}/${m}/${y}`;}
-  if(f&&t){const days=getOuvrables(f,t);const info=document.getElementById('periodeInfo');info.style.display='block';info.textContent=`✅ ${days.length} jours ouvrés (lun-ven) seront enregistrés`;}
+  if(f&&t){const days=getOuvrables(f,t);const info=document.getElementById('periodeInfo');info.style.display='block';info.textContent=`✅ ${days.length} jours ouvrés seront enregistrés`;}
 }
-
-function getOuvrables(from,to){
-  const days=[];let d=new Date(from);const end=new Date(to);
-  while(d<=end){if(d.getDay()!==0&&d.getDay()!==6)days.push(new Date(d).toISOString().slice(0,10));d.setDate(d.getDate()+1);}
-  return days;
-}
+function getOuvrables(from,to){const days=[];let d=new Date(from);const end=new Date(to);while(d<=end){if(d.getDay()!==0&&d.getDay()!==6)days.push(d.toISOString().slice(0,10));d.setDate(d.getDate()+1);}return days;}
 
 function loadExisting(){
   const v=document.getElementById('hdate').value;
   if(!v||selEmps.length!==1)return;
-  const entry=(window.ENT||[]).find(e=>e.date===v&&e.employe===selEmps[0]);
+  const emp=selEmps[0];
+  const entry=(window.ENT||[]).find(e=>e.date===v&&e.employe===emp);
   if(entry){
     selType=entry.type||'work';
     document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));
     document.getElementById(selType==='conge'?'tabC':selType==='ferie'?'tabF':'tabW').classList.add('on');
     document.getElementById('workCard').style.display=selType==='work'?'block':'none';
     document.getElementById('congeCard').style.display=selType==='conge'?'block':'none';
-    document.getElementById('tDep').value=entry.depart||'';document.getElementById('tDepC').value=entry.depart_c||'';
-    document.getElementById('tRep').value=entry.repas||'';document.getElementById('tRet').value=entry.retour||'';
+    document.getElementById('tDep').value=entry.depart||'00:00';
+    document.getElementById('tDepC').value=entry.depart_c||'00:00';
+    document.getElementById('tRep').value=entry.repas||'00:00';
+    document.getElementById('tRet').value=entry.retour||'00:00';
     calcH();
-  }else{
-    setDefaultTimes();
-  }
+  }else{setDefaultTimes();}
 }
 
-function t2m(v){if(!v)return null;const[h,m]=v.split(':').map(Number);return h*60+m;}
-function m2s(m){if(m===null||m===undefined||m<0)return '--:--';return String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0');}
+function t2m(v){if(!v||v==='00:00')return null;const[h,m]=v.split(':').map(Number);return h*60+m;}
+function m2s(m){if(m===null||m<0)return '--:--';return String(Math.floor(m/60)).padStart(2,'0')+':'+String(m%60).padStart(2,'0');}
 
 function calcH(){
-  // tDep = heure départ dépôt (heure)
-  // tDepC = heure départ chantier = heure fin de journée (heure)
-  // tRep = durée repas à soustraire (durée)
-  // tRet = durée retour dépôt à ajouter (durée)
   const dep=t2m(document.getElementById('tDep').value);
   const fin=t2m(document.getElementById('tDepC').value);
   const rep=t2m(document.getElementById('tRep').value);
   const retDur=t2m(document.getElementById('tRet').value);
   const hv=document.getElementById('hval');
-  if(dep!==null && fin!==null){
-    let tot=fin-dep; // base: départ dépôt → départ chantier
-    if(rep!==null) tot-=rep;      // - repas
-    if(retDur!==null) tot+=retDur; // + retour dépôt
-    hv.textContent=m2s(Math.max(0,tot));
-    hv.className='hval'+(tot<0?' neg':'');
-    const refDay=((window.CFG?.hSem)||39)/5;
-    const diff=tot/60-refDay;
-    let detail=`${m2s(dep)}→${m2s(fin)}`;
-    if(rep!==null) detail+=` | repas -${m2s(rep)}`;
-    if(retDur!==null) detail+=` | dépôt +${m2s(retDur)}`;
-    detail+=` · ${diff>=0?'+':''}${diff.toFixed(2)}h`;
-    document.getElementById('hdetail').textContent=detail;
+  if(dep!==null&&fin!==null){
+    let tot=fin-dep;if(rep!==null)tot-=rep;if(retDur!==null)tot+=retDur;
+    hv.textContent=m2s(Math.max(0,tot));hv.className='hval'+(tot<0?' neg':'');
+    const refDay=((window.CFG?.hSem)||39)/5;const diff=tot/60-refDay;
+    let det=`${m2s(dep)}→${m2s(fin)}`;
+    if(rep!==null)det+=` | -${m2s(rep)} repas`;
+    if(retDur!==null)det+=` | +${m2s(retDur)} dépôt`;
+    det+=` · ${diff>=0?'+':''}${diff.toFixed(1)}h`;
+    document.getElementById('hdetail').textContent=det;
   }else{hv.textContent='--:--';hv.className='hval';document.getElementById('hdetail').textContent='—';}
 }
 
@@ -545,6 +602,14 @@ async function saveEntry(){
     for(const emp of emps)for(const day of days){const r=await window.fbSaveEntry({date:day,employe:emp,type:'conge',depart:'',depart_c:'',repas:'',retour:'',mins:0,saved_at:new Date().toISOString()});if(!r)ok=false;}
     btn.disabled=false;showToast(ok?`✓ ${days.length} jours enregistrés`:'Erreur réseau',ok?'':'err');return;
   }
+  if(selType==='ferie'){
+    const dateVal=document.getElementById('hdate').value;
+    const emps=selEmps.filter(e=>e!=='Tous'&&e!=='Aucun');
+    if(!emps.length){showToast('Sélectionnez un employé','err');btn.disabled=false;return;}
+    let ok=true;
+    for(const emp of emps){const r=await window.fbSaveEntry({date:dateVal,employe:emp,type:'ferie',depart:'',depart_c:'',repas:'',retour:'',mins:0,saved_at:new Date().toISOString()});if(!r)ok=false;}
+    btn.disabled=false;showToast(ok?'✓ Férié enregistré':'Erreur réseau',ok?'':'err');return;
+  }
   const dateVal=document.getElementById('hdate').value;
   if(!dateVal){showToast('Sélectionnez une date','err');btn.disabled=false;return;}
   const emps=selEmps.filter(e=>e!=='Tous'&&e!=='Aucun');
@@ -553,7 +618,7 @@ async function saveEntry(){
   const dm=t2m(dep),fm=t2m(depC),rpm=t2m(rep),retDur=t2m(ret);
   let mins=0;if(dm!==null&&fm!==null){mins=fm-dm;if(rpm!==null)mins-=rpm;if(retDur!==null)mins+=retDur;mins=Math.max(0,mins);}
   let ok=true;
-  for(const emp of emps){const r=await window.fbSaveEntry({date:dateVal,employe:emp,type:selType,depart:dep,depart_c:depC,repas:rep,retour:ret,mins:Math.max(0,mins),saved_at:new Date().toISOString()});if(!r)ok=false;}
+  for(const emp of emps){const r=await window.fbSaveEntry({date:dateVal,employe:emp,type:'work',depart:dep,depart_c:depC,repas:rep,retour:ret,mins,saved_at:new Date().toISOString()});if(!r)ok=false;}
   btn.disabled=false;showToast(ok?`✓ Enregistré (${emps.length} pers.)`:'Erreur réseau',ok?'':'err');
 }
 
@@ -568,16 +633,26 @@ function refreshCurScr(){if(curScrIdx===1)buildMesHeures();if(curScrIdx===2)buil
 
 function buildMesHeures(){
   const hSem=window.CFG?.hSem||39;
-  const myE=(window.ENT||[]).filter(e=>e.employe===ME.name&&new Date(e.date).getMonth()===curMonth);
+  const targetEmp=ME.role==='dir'?null:ME.name;
+  const myE=(window.ENT||[]).filter(e=>(!targetEmp||e.employe===targetEmp)&&new Date(e.date).getMonth()===curMonth);
   const work=myE.filter(e=>e.type==='work');
   const totalMins=work.reduce((s,e)=>s+(e.mins||0),0);const totalH=totalMins/60;
-  const weeks=getWeeksInMonth(curMonth,curYear);const expH=hSem*weeks.length;const diff=totalH-expH;
-  let html=`<div style="font-size:14px;font-weight:700;color:#ddd;margin-bottom:14px;">📈 Mes heures — ${MFULL[curMonth]}</div>
-    <div class="mh-row"><div style="font-size:13px;color:#ccc;">Total travaillé</div><div class="mh-val">${totalH.toFixed(1)}h</div></div>
-    <div class="mh-row"><div style="font-size:13px;color:#ccc;">Objectif (${hSem}h × ${weeks.length} sem.)</div><div class="mh-val">${expH.toFixed(0)}h</div></div>
+  const weeks=getWeeksInMonth(curMonth,curYear);
+  const expH=hSem*weeks.length;const diff=totalH-expH;
+
+  let html=`<div style="font-size:14px;font-weight:700;color:#ddd;margin-bottom:14px;">📈 Mes heures — ${MFULL[curMonth]}</div>`;
+
+  // Pour admin/dir : filtre par personne
+  if(ME.role==='admin'||ME.role==='dir'){
+    html+=`<div class="filter-tabs" id="mhFilterTabs"></div>`;
+  }
+
+  html+=`<div class="mh-row"><div style="font-size:13px;color:#ccc;">Total travaillé</div><div class="mh-val">${totalH.toFixed(1)}h</div></div>
+    <div class="mh-row"><div style="font-size:13px;color:#ccc;">Objectif</div><div class="mh-val">${expH.toFixed(0)}h</div></div>
     <div class="mh-row"><div style="font-size:13px;color:#ccc;">Solde</div><div class="mh-val ${diff>=0?'pos':'neg'}">${diff>=0?'+':''}${diff.toFixed(1)}h</div></div>
     <div class="mh-row"><div style="font-size:13px;color:#ccc;">Congés</div><div class="mh-val">${myE.filter(e=>e.type==='conge').length}j</div></div>
     <div style="margin-top:14px;font-size:11px;color:#444;letter-spacing:.08em;margin-bottom:8px;">DÉTAIL PAR SEMAINE</div>`;
+
   weeks.forEach(w=>{
     const wE=work.filter(e=>{const d=new Date(e.date);return d>=w.s&&d<=w.e;});
     const wH=wE.reduce((s,e)=>s+(e.mins||0),0)/60;const wD=wH-hSem;const pct=Math.min(100,Math.round(wH/hSem*100));
@@ -587,23 +662,76 @@ function buildMesHeures(){
         <span style="font-size:12px;color:${wD>=0?'#27c97a':'#e03535'}">${wD>=0?'+':''}${wD.toFixed(1)}h</span>
       </div><div class="prog"><div class="prog-fill" style="width:${pct}%;background:${pct>=100?'#27c97a':'#e03535'}"></div></div></div>`;
   });
+
   document.getElementById('mhContent').innerHTML=html;
+
+  // Ajouter les filtres employés pour admin/dir
+  if(ME.role==='admin'||ME.role==='dir'){
+    const tabs=document.getElementById('mhFilterTabs');
+    if(tabs){
+      const emps=['Tous',...(window.CFG.employes||[])];
+      let mhEmp='Tous';
+      emps.forEach(emp=>{
+        const b=document.createElement('button');b.className='ftab'+(emp==='Tous'?' on':'');b.textContent=emp;
+        b.onclick=()=>{
+          mhEmp=emp;
+          document.querySelectorAll('#mhFilterTabs .ftab').forEach(x=>x.classList.remove('on'));b.classList.add('on');
+          buildMesHeuresForEmp(emp);
+        };
+        tabs.appendChild(b);
+      });
+    }
+  }
 }
 
-function getWeeksInMonth(m,y){
-  const weeks=[];let d=new Date(y,m,1);
-  while(d.getDay()!==1)d.setDate(d.getDate()+1);
-  while(d.getMonth()===m){const s=new Date(d),e=new Date(d);e.setDate(e.getDate()+4);weeks.push({s,e});d.setDate(d.getDate()+7);}
-  return weeks;
+function buildMesHeuresForEmp(emp){
+  const hSem=window.CFG?.hSem||39;
+  const myE=(window.ENT||[]).filter(e=>(emp==='Tous'||e.employe===emp)&&new Date(e.date).getMonth()===curMonth);
+  const work=myE.filter(e=>e.type==='work');
+  const totalMins=work.reduce((s,e)=>s+(e.mins||0),0);const totalH=totalMins/60;
+  const weeks=getWeeksInMonth(curMonth,curYear);
+  const expH=hSem*weeks.length;const diff=totalH-expH;
+  // Rebuild stats only (keep filter tabs)
+  const content=document.getElementById('mhContent');
+  const tabs=document.getElementById('mhFilterTabs');
+  let html=`<div style="font-size:14px;font-weight:700;color:#ddd;margin-bottom:14px;">📈 ${emp==='Tous'?'Équipe':emp} — ${MFULL[curMonth]}</div>`;
+  html+=tabs?tabs.outerHTML:'';
+  html+=`<div class="mh-row"><div style="font-size:13px;color:#ccc;">Total travaillé</div><div class="mh-val">${totalH.toFixed(1)}h</div></div>
+    <div class="mh-row"><div style="font-size:13px;color:#ccc;">Objectif</div><div class="mh-val">${expH.toFixed(0)}h</div></div>
+    <div class="mh-row"><div style="font-size:13px;color:#ccc;">Solde</div><div class="mh-val ${diff>=0?'pos':'neg'}">${diff>=0?'+':''}${diff.toFixed(1)}h</div></div>
+    <div style="margin-top:14px;font-size:11px;color:#444;letter-spacing:.08em;margin-bottom:8px;">DÉTAIL PAR SEMAINE</div>`;
+  weeks.forEach(w=>{
+    const wE=work.filter(e=>{const d=new Date(e.date);return d>=w.s&&d<=w.e;});
+    const wH=wE.reduce((s,e)=>s+(e.mins||0),0)/60;const wD=wH-hSem;const pct=Math.min(100,Math.round(wH/hSem*100));
+    html+=`<div class="week-card"><div style="font-size:11px;color:#555;margin-bottom:6px;">${fmtD(w.s)} → ${fmtD(w.e)}</div>
+      <div style="display:flex;justify-content:space-between;"><span style="font-size:14px;font-weight:700;">${wH.toFixed(1)}h</span>
+      <span style="font-size:12px;color:${wD>=0?'#27c97a':'#e03535'}">${wD>=0?'+':''}${wD.toFixed(1)}h</span></div>
+      <div class="prog"><div class="prog-fill" style="width:${pct}%;background:${pct>=100?'#27c97a':'#e03535'}"></div></div></div>`;
+  });
+  content.innerHTML=html;
 }
-function fmtD(d){return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0');}
 
 function buildRecap(){
+  const emps=(window.CFG?.employes||[]);
+  // Filter tabs: Tous + chaque employé
+  const tabsEl=document.getElementById('recapFilterTabs');
+  if(tabsEl&&tabsEl.children.length===0){
+    ['Tous',...emps].forEach(emp=>{
+      const b=document.createElement('button');b.className='ftab'+(emp===recapFilter?' on':'');b.textContent=emp;
+      b.onclick=()=>{recapFilter=emp;document.querySelectorAll('#recapFilterTabs .ftab').forEach(x=>x.classList.remove('on'));b.classList.add('on');renderRecap();};
+      tabsEl.appendChild(b);
+    });
+  }
+  renderRecap();
+}
+
+function renderRecap(){
   let entries=(window.ENT||[]).filter(e=>new Date(e.date).getMonth()===curMonth);
-  if(ME.role==='tech')entries=entries.filter(e=>e.employe===ME.name);
+  if(recapFilter!=='Tous')entries=entries.filter(e=>e.employe===recapFilter);
   entries.sort((a,b)=>b.date.localeCompare(a.date));
   document.getElementById('recapTitle').textContent=`Récap — ${MFULL[curMonth]}`;
-  const tb=document.getElementById('recapBody');tb.innerHTML='';let tot=0;
+  const tb=document.getElementById('recapBody');tb.innerHTML='';
+  let tot=0;
   entries.forEach(e=>{
     const[y,m,d]=e.date.split('-');
     const badge=e.type==='conge'?'<span class="badge bc">Congé</span>':e.type==='ferie'?'<span class="badge bf">Férié</span>':'<span class="badge bw">Travail</span>';
@@ -615,44 +743,50 @@ function buildRecap(){
   document.getElementById('recapTotal').textContent=`Total : ${m2s(tot)} (${(tot/60).toFixed(1)}h)`;
 }
 
+function getWeeksInMonth(m,y){
+  const weeks=[];let d=new Date(y,m,1);
+  while(d.getDay()!==1)d.setDate(d.getDate()+1);
+  while(d.getMonth()===m){const s=new Date(d),e=new Date(d);e.setDate(e.getDate()+4);weeks.push({s,e});d.setDate(d.getDate()+7);}
+  return weeks;
+}
+function fmtD(d){return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0');}
+
 function loadCfgScreen(){
-  if(!window.CFG)return;
-  document.getElementById('cfgHSem').value=window.CFG.hSem||39;
-  const emps=window.CFG.employes||[],pins=window.CFG.userPins||{},roles=window.CFG.roles||{};
+  const cfg=window.CFG||{};
+  document.getElementById('cfgHSem').value=cfg.hSem||39;
+  document.getElementById('cfgAdminPin').value=cfg.pin||'';
+  document.getElementById('cfgDirPin').value=cfg.dirPin||'';
+  const emps=cfg.employes||[],pins=cfg.userPins||{},roles=cfg.roles||{};
   let html='';
   emps.forEach(name=>{
-    const ri=roleIcon(roles[name]||'tech');
     html+=`<div class="emp-cfg-row">
-      <div style="flex:1;font-size:13px;color:#ccc;">${ri} ${name}</div>
+      <div style="flex:1;font-size:13px;color:#ccc;">${name} <span style="font-size:11px;color:#444;">${roles[name]||'tech'}</span></div>
       <input class="emp-cfg-pin" type="text" value="${pins[name]||''}" onchange="updateEmpPin('${name}',this.value)" placeholder="PIN">
       <button class="del-btn" onclick="delEmp('${name}')">✕</button></div>`;
   });
   document.getElementById('cfgEmps').innerHTML=html;
 }
 
-function updateEmpPin(name,val){if(!window.CFG.userPins)window.CFG.userPins={};window.CFG.userPins[name]=val;window.fbSaveCfg();showToast('PIN mis à jour ✓');}
+function updateEmpPin(name,val){if(!window.CFG.userPins)window.CFG.userPins={};window.CFG.userPins[name]=val;cfgChanged();}
 function addEmp(){
-  const n=document.getElementById('newEmpName').value.trim();
-  const p=document.getElementById('newEmpPin').value.trim();
-  const r=document.getElementById('newEmpRole').value;
+  const n=document.getElementById('newEmpName').value.trim(),p=document.getElementById('newEmpPin').value.trim();
   if(!n){showToast('Entrez un prénom','err');return;}
   if(!window.CFG.employes)window.CFG.employes=[];
   if(!window.CFG.userPins)window.CFG.userPins={};
   if(!window.CFG.roles)window.CFG.roles={};
-  window.CFG.employes.push(n);window.CFG.userPins[n]=p||'0000';window.CFG.roles[n]=r;
+  window.CFG.employes.push(n);window.CFG.userPins[n]=p||'0000';window.CFG.roles[n]='tech';
   document.getElementById('newEmpName').value='';document.getElementById('newEmpPin').value='';
-  loadCfgScreen();window.fbSaveCfg();showToast(`${n} ajouté ✓`);
+  loadCfgScreen();cfgChanged();
 }
 function delEmp(name){
-  if(!confirm(`Supprimer ${name} ?`))return;
-  window.CFG.employes=(window.CFG.employes||[]).filter(e=>e!==name);
+  window.CFG.employes=window.CFG.employes.filter(e=>e!==name);
   delete window.CFG.userPins[name];delete window.CFG.roles[name];
-  loadCfgScreen();window.fbSaveCfg();showToast(`${name} supprimé`);
+  loadCfgScreen();cfgChanged();
 }
 async function cfgChanged(){
   window.CFG.hSem=parseFloat(document.getElementById('cfgHSem').value)||39;
-  const ap=document.getElementById('cfgAdminPin').value;if(ap&&ap.length>=4)window.CFG.pin=ap;
-  const dp=document.getElementById('cfgDirPin').value;if(dp&&dp.length>=4)window.CFG.dirPin=dp;
+  const ap=document.getElementById('cfgAdminPin').value;if(ap)window.CFG.pin=ap;
+  const dp=document.getElementById('cfgDirPin').value;if(dp)window.CFG.dirPin=dp;
   await window.fbSaveCfg();showToast('Config sauvegardée ✓');
 }
 
@@ -662,74 +796,39 @@ function exportCSV(){
   const csv=rows.map(r=>r.map(v=>`"${v}"`).join(';')).join('\n');
   const a=document.createElement('a');a.href='data:text/csv;charset=utf-8,\uFEFF'+encodeURIComponent(csv);a.download=`KOMPAN_${new Date().toISOString().slice(0,10)}.csv`;a.click();showToast('CSV téléchargé ✓');
 }
-async function importCSV(input){
-  const file = input.files[0];
-  if(!file){ return; }
-  const text = await file.text();
-  const lines = text.split('
-').filter(l=>l.trim());
-  if(lines.length < 2){ showToast('Fichier vide','err'); return; }
 
-  // Detect separator
-  const sep = lines[0].includes(';') ? ';' : ',';
-
-  // Parse header
-  const headers = lines[0].split(sep).map(h=>h.replace(/"/g,'').trim().toLowerCase());
-  const idx = {
-    date: headers.findIndex(h=>h.includes('date')),
-    employe: headers.findIndex(h=>h.includes('employ')),
-    type: headers.findIndex(h=>h.includes('type')),
-    depart: headers.findIndex(h=>h.includes('d') && h.includes('p') && h.includes('t') && !h.includes('c')),
-    depart_c: headers.findIndex(h=>h.includes('chantier')),
-    repas: headers.findIndex(h=>h.includes('repas')),
-    retour: headers.findIndex(h=>h.includes('retour') || h.includes('d') && h.includes('p') && h.includes('t') && h.includes('h')),
-    mins: headers.findIndex(h=>h.includes('min')),
-  };
-
-  let imported=0, errors=0;
-  const rows = lines.slice(1);
-  showToast(`Import de ${rows.length} lignes...`);
-
-  for(const line of rows){
-    if(!line.trim()) continue;
-    const cols = line.split(sep).map(c=>c.replace(/"/g,'').trim());
-    const date = idx.date>=0 ? cols[idx.date] : '';
-    const employe = idx.employe>=0 ? cols[idx.employe] : '';
-    if(!date || !employe) continue;
-
-    // Normalize date: accept DD/MM/YYYY or YYYY-MM-DD
-    let isoDate = date;
-    if(date.includes('/')){
-      const parts = date.split('/');
-      if(parts[0].length===4) isoDate = date.replace(/\//g,'-'); // YYYY/MM/DD
-      else isoDate = `${parts[2]}-${parts[1].padStart(2,'0')}-${parts[0].padStart(2,'0')}`; // DD/MM/YYYY
-    }
-
-    const type = idx.type>=0 ? (cols[idx.type]||'work') : 'work';
-    const depart = idx.depart>=0 ? cols[idx.depart]||'' : '';
-    const depart_c = idx.depart_c>=0 ? cols[idx.depart_c]||'' : '';
-    const repas = idx.repas>=0 ? cols[idx.repas]||'' : '';
-    const retour = idx.retour>=0 ? cols[idx.retour]||'' : '';
-    const mins = idx.mins>=0 ? parseInt(cols[idx.mins])||0 : 0;
-
-    const entry = { date:isoDate, employe, type, depart, depart_c, repas, retour, mins, saved_at: new Date().toISOString() };
-    const ok = await window.fbSaveEntry(entry);
-    if(ok) imported++; else errors++;
+async function importFile(input){
+  const file=input.files[0];if(!file)return;
+  const text=await file.text();
+  let entries=[];
+  try{
+    const json=JSON.parse(text);
+    entries=json.entries||json;
+  }catch(e){
+    const lines=text.split(/\r?\n/).filter(l=>l.trim());
+    if(lines.length<2){showToast('Fichier vide','err');return;}
+    const sep=lines[0].includes(';')?';':',';
+    const headers=lines[0].split(sep).map(h=>h.replace(/"/g,'').trim().toLowerCase());
+    const iDate=headers.findIndex(h=>h.includes('date'));
+    const iEmp=headers.findIndex(h=>h.includes('employ'));
+    const iType=headers.findIndex(h=>h.includes('type'));
+    const iMins=headers.findIndex(h=>h.includes('min'));
+    lines.slice(1).forEach(line=>{
+      const cols=line.split(sep).map(c=>c.replace(/"/g,'').trim());
+      if(cols[iDate]&&cols[iEmp])entries.push({date:cols[iDate],employe:cols[iEmp],type:cols[iType]||'work',mins:parseInt(cols[iMins])||0});
+    });
   }
-
+  let ok=0;
+  for(const e of entries){
+    const res=await window.fbSaveEntry({...e,saved_at:new Date().toISOString()});
+    if(res)ok++;
+  }
   input.value='';
-  if(errors===0) showToast(`✓ ${imported} entrées importées !`);
-  else showToast(`${imported} importées, ${errors} erreurs`,'err');
-}
-
-function exportJSON(){
-  const a=document.createElement('a');a.href='data:application/json,'+encodeURIComponent(JSON.stringify({config:window.CFG,entries:window.ENT,exported:new Date().toISOString()},null,2));
-  a.download=`KOMPAN_backup_${new Date().toISOString().slice(0,10)}.json`;a.click();showToast('Sauvegarde téléchargée ✓');
+  showToast(`✓ ${ok} entrées importées`);
 }
 
 function showToast(msg,type=''){
-  const t=document.getElementById('toast');t.textContent=msg;
-  t.className='toast'+(type==='err'?' err':'')+' show';
+  const t=document.getElementById('toast');t.textContent=msg;t.className='toast'+(type==='err'?' err':'')+' show';
   setTimeout(()=>t.classList.remove('show'),2500);
 }
 </script>
