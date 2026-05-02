@@ -371,18 +371,26 @@ window.fbLoad = async function() {
     var fbEntries = [];
     eSnap.forEach(d => fbEntries.push({...d.data()}));
 
-    // Si Firebase est vide mais localStorage a des données → pousser vers Firebase
+    // Si Firebase a moins d'entrées que le localStorage → pousser les manquantes
     var local = localStorage.getItem('kv2');
     var localData = local ? JSON.parse(local) : null;
-    if (fbEntries.length === 0 && localData && localData.entries && localData.entries.length > 0) {
-      console.log('Firebase vide, push des données locales vers Firebase...');
+    if (localData && localData.entries && localData.entries.length > fbEntries.length) {
+      console.log('Push données locales vers Firebase: ' + localData.entries.length + ' entrées...');
       window.setSyncDot('sync');
-      for (const entry of localData.entries) {
-        var id = entry.date + '_' + entry.employe.replace(/\s/g,'_');
-        try { await setDoc(doc(db,'entries',id), entry); } catch(e2) {}
+      // Entrées déjà dans Firebase
+      var fbIds = new Set(fbEntries.map(e => e.date + '_' + e.employe.replace(/\s/g,'_')));
+      var toUpload = localData.entries.filter(e => !fbIds.has(e.date + '_' + e.employe.replace(/\s/g,'_')));
+      console.log('Entrées manquantes à pousser: ' + toUpload.length);
+      // Push par lots de 10 pour fiabilité
+      for (let i = 0; i < toUpload.length; i += 10) {
+        const batch = toUpload.slice(i, i + 10);
+        await Promise.all(batch.map(entry => {
+          var id = entry.date + '_' + entry.employe.replace(/\s/g,'_');
+          return setDoc(doc(db,'entries',id), entry).catch(e2 => console.error('Entry error:', e2));
+        }));
       }
       fbEntries = localData.entries;
-      console.log('Push terminé: ' + fbEntries.length + ' entrées');
+      console.log('Push terminé: ' + fbEntries.length + ' entrées dans Firebase');
     }
 
     cfg.entries = fbEntries;
