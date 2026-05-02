@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>KOMPAN Import</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:system-ui,sans-serif;background:#0f1117;color:#f1f5f9;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;}
+.card{background:#1a1d27;border:1px solid #2d3348;border-radius:16px;padding:28px;width:100%;max-width:480px;}
+h1{font-size:20px;font-weight:700;margin-bottom:6px;color:#d61b27;}
+p{font-size:13px;color:#64748b;margin-bottom:20px;}
+.btn{width:100%;padding:14px;border-radius:12px;border:none;background:#d61b27;color:#fff;font-size:15px;font-weight:600;cursor:pointer;margin-bottom:10px;}
+.btn:disabled{background:#3a1515;color:#884444;cursor:not-allowed;}
+.btn.sec{background:#21253a;color:#94a3b8;}
+input[type=file]{display:none;}
+.prog-wrap{display:none;margin-top:16px;}
+.prog-bar{background:#21253a;border-radius:8px;height:10px;overflow:hidden;margin:10px 0;}
+.prog-fill{height:100%;background:#22c55e;border-radius:8px;transition:width .3s;width:0%;}
+.log{background:#0f1117;border-radius:8px;padding:12px;font-size:12px;font-family:monospace;color:#64748b;max-height:200px;overflow-y:auto;margin-top:10px;}
+.log .ok{color:#22c55e;} .log .err{color:#ef4444;} .log .inf{color:#f97316;}
+.big{font-size:28px;font-weight:700;color:#22c55e;text-align:center;margin:10px 0;}
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>🔧 KOMPAN Import</h1>
+  <p>Outil d'import des données historiques vers Firebase. Sélectionnez votre fichier kompan_save.json.</p>
+  
+  <button class="btn" onclick="document.getElementById('fileIn').click()">📂 Choisir fichier JSON</button>
+  <input type="file" id="fileIn" accept=".json" onchange="onFile(event)">
+  <button class="btn sec" id="startBtn" onclick="startImport()" disabled>⬆️ Lancer l'import</button>
+  
+  <div class="prog-wrap" id="progWrap">
+    <div style="display:flex;justify-content:space-between;font-size:13px;color:#64748b;">
+      <span id="progLbl">0 / 0</span>
+      <span id="progPct">0%</span>
+    </div>
+    <div class="prog-bar"><div class="prog-fill" id="progFill"></div></div>
+    <div class="log" id="log"></div>
+  </div>
+</div>
+
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+import { getFirestore, doc, setDoc, getDoc, collection, getDocs } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+
+const FB = {
+  apiKey:"AIzaSyBY9OqXcULhxNRy13OJKNKQbJhomn1SBOc",
+  authDomain:"kompan-39b54.firebaseapp.com",
+  projectId:"kompan-39b54",
+  storageBucket:"kompan-39b54.firebasestorage.app",
+  messagingSenderId:"897540827503",
+  appId:"1:897540827503:web:87ff1bce1a1c21c551209a"
+};
+const app = initializeApp(FB);
+const db = getFirestore(app);
+
+var importData = null;
+
+window.onFile = function(ev) {
+  const f = ev.target.files[0];
+  if (!f) return;
+  const r = new FileReader();
+  r.onload = function(e) {
+    try {
+      importData = JSON.parse(e.target.result);
+      const count = (importData.entries||[]).length;
+      log(`✅ Fichier chargé : <span class="ok">${count} entrées</span>`, 'ok');
+      document.getElementById('startBtn').disabled = false;
+      document.getElementById('startBtn').textContent = `⬆️ Importer ${count} entrées`;
+    } catch(err) {
+      log('❌ Fichier JSON invalide', 'err');
+    }
+  };
+  r.readAsText(f);
+  ev.target.value = '';
+};
+
+window.startImport = async function() {
+  if (!importData) return;
+  document.getElementById('startBtn').disabled = true;
+  document.getElementById('progWrap').style.display = 'block';
+
+  const entries = importData.entries || [];
+  const total = entries.length;
+  let done = 0, errors = 0;
+
+  log(`🚀 Début import de ${total} entrées...`, 'inf');
+
+  // D'abord vérifier ce qui est déjà dans Firebase
+  log('🔍 Vérification des données existantes...', 'inf');
+  const existing = new Set();
+  try {
+    const snap = await getDocs(collection(db, 'entries'));
+    snap.forEach(d => existing.add(d.id));
+    log(`📊 ${existing.size} entrées déjà dans Firebase`, 'inf');
+  } catch(e) {
+    log('⚠️ Impossible de vérifier Firebase, import complet...', 'err');
+  }
+
+  const toImport = entries.filter(e => {
+    const id = e.date + '_' + e.employe.replace(/\s/g,'_');
+    return !existing.has(id);
+  });
+
+  log(`📋 ${toImport.length} nouvelles entrées à importer`, 'inf');
+
+  if (toImport.length === 0) {
+    log('✅ Toutes les entrées sont déjà dans Firebase !', 'ok');
+    updateProg(total, total);
+    return;
+  }
+
+  // Import 1 par 1 avec délai pour éviter les limites
+  for (let i = 0; i < toImport.length; i++) {
+    const entry = toImport[i];
+    const id = entry.date + '_' + entry.employe.replace(/\s/g,'_');
+    let retries = 3;
+    let success = false;
+    
+    while (retries > 0 && !success) {
+      try {
+        await setDoc(doc(db, 'entries', id), entry);
+        success = true;
+        done++;
+      } catch(e) {
+        retries--;
+        if (retries > 0) {
+          await sleep(500); // attendre avant retry
+        } else {
+          errors++;
+          log(`❌ Erreur: ${entry.date} ${entry.employe}`, 'err');
+        }
+      }
+    }
+
+    updateProg(done + errors + existing.size, total);
+
+    // Log tous les 50
+    if (done % 50 === 0 && done > 0) {
+      log(`✓ ${done} importées...`, 'ok');
+    }
+
+    // Pause toutes les 20 entrées pour éviter throttling
+    if (i % 20 === 19) {
+      await sleep(300);
+    }
+  }
+
+  // Sauvegarder la config aussi
+  try {
+    const cfgToSave = {...importData};
+    delete cfgToSave.entries;
+    await setDoc(doc(db,'config','main'), cfgToSave);
+    log('✅ Config sauvegardée', 'ok');
+  } catch(e) {
+    log('⚠️ Config non sauvegardée', 'err');
+  }
+
+  log(`<br><strong class="ok">🎉 Import terminé ! ${done} entrées importées${errors>0?' / '+errors+' erreurs':''}.</strong>`, 'ok');
+  log('Vous pouvez fermer cette page et ouvrir KOMPAN.', 'inf');
+  
+  // Sauvegarder aussi en localStorage pour KOMPAN
+  localStorage.setItem('kv2', JSON.stringify({...importData}));
+};
+
+function updateProg(done, total) {
+  const pct = Math.round(done/total*100);
+  document.getElementById('progFill').style.width = pct + '%';
+  document.getElementById('progLbl').textContent = done + ' / ' + total;
+  document.getElementById('progPct').textContent = pct + '%';
+}
+
+function log(msg, cls) {
+  const el = document.getElementById('log');
+  el.innerHTML += `<div class="${cls||''}">${msg}</div>`;
+  el.scrollTop = el.scrollHeight;
+}
+
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+</script>
+</body>
+</html>
