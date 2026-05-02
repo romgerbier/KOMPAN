@@ -368,10 +368,24 @@ window.fbLoad = async function() {
     if (!snap.exists()) await setDoc(doc(db,'config','main'), cfg);
 
     const eSnap = await getDocs(collection(db,'entries'));
-    var entries = [];
-    eSnap.forEach(d => entries.push({...d.data()}));
-    cfg.entries = entries;
+    var fbEntries = [];
+    eSnap.forEach(d => fbEntries.push({...d.data()}));
 
+    // Si Firebase est vide mais localStorage a des données → pousser vers Firebase
+    var local = localStorage.getItem('kv2');
+    var localData = local ? JSON.parse(local) : null;
+    if (fbEntries.length === 0 && localData && localData.entries && localData.entries.length > 0) {
+      console.log('Firebase vide, push des données locales vers Firebase...');
+      window.setSyncDot('sync');
+      for (const entry of localData.entries) {
+        var id = entry.date + '_' + entry.employe.replace(/\s/g,'_');
+        try { await setDoc(doc(db,'entries',id), entry); } catch(e2) {}
+      }
+      fbEntries = localData.entries;
+      console.log('Push terminé: ' + fbEntries.length + ' entrées');
+    }
+
+    cfg.entries = fbEntries;
     localStorage.setItem('kv2', JSON.stringify(cfg));
     window.setSyncDot('ok');
     return cfg;
