@@ -250,10 +250,6 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
     <div class="sec" id="sec-stats">
       <div class="sgrid" id="statsGrid"></div>
       <div class="rcard" id="rankCard"></div>
-      <button class="btexp" onclick="exportCSV()">📊 Exporter CSV</button>
-      <button class="btexp" onclick="exportJSON()">💾 Sauvegarder</button>
-      <button class="btexp" onclick="document.getElementById('fileIn').click()">📂 Importer JSON</button>
-      <input type="file" id="fileIn" accept=".json" style="display:none" onchange="handleImport(event)">
     </div>
 
     <!-- CONFIG -->
@@ -286,6 +282,10 @@ select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/
       <p class="stit">Codes PIN équipe</p>
       <div id="pinsList" style="margin-bottom:20px"></div>
       <p class="stit">Données</p>
+      <button class="btexp" onclick="exportCSV()">📊 Exporter CSV</button>
+      <button class="btexp" onclick="exportJSON()">💾 Sauvegarder</button>
+      <button class="btexp" onclick="document.getElementById('fileIn').click()">📂 Importer JSON</button>
+      <input type="file" id="fileIn" accept=".json" style="display:none" onchange="handleImport(event)">
       <button class="btexp" style="color:#ef4444;border-color:#ef4444" onclick="clearAll()">🗑️ Effacer toutes les données</button>
     </div>
   </div>
@@ -571,9 +571,9 @@ function setupRole(role, name) {
   document.getElementById('ubadge').classList.toggle('adm', role !== 'tech');
   var isAdmin = role==='admin', isChef = role==='chef', isTech = role==='tech', isDir = role==='dir';
   document.getElementById('nav-saisie').style.display = isDir ? 'none' : '';
-  document.getElementById('nav-recap').style.display = (isAdmin||isChef||isDir) ? '' : 'none';
+  document.getElementById('nav-recap').style.display = (isAdmin||isDir) ? '' : 'none';
   document.getElementById('nav-my').style.display = (isTech||isChef) ? '' : 'none';
-  document.getElementById('nav-stats').style.display = (isAdmin||isChef||isDir) ? '' : 'none';
+  document.getElementById('nav-stats').style.display = (isAdmin||isDir) ? '' : 'none';
   document.getElementById('nav-cfg').style.display = isAdmin ? '' : 'none';
   var empWrap = document.getElementById('empWrap');
   var chipsWrap = document.getElementById('chipsWrap');
@@ -867,7 +867,7 @@ function renderMy() {
 // ── RECAP
 function renderRecap() {
   var mode=document.getElementById('recapMode').value, d=gd(), yr=new Date().getFullYear();
-  var es=d.entries.filter(function(e){var dt=new Date(e.date);return dt.getMonth()===curMonth&&dt.getFullYear()===yr;});
+  var es=d.entries.filter(function(e){var dt=new Date(e.date);return dt.getMonth()===curMonth&&dt.getFullYear()===yr&&(user.role==='admin'||user.role==='dir'||(user.role==='chef'&&e.employe===user.name));});
   document.getElementById('recapTot').textContent=m2h(es.filter(function(e){return e.type==='work';}).reduce(function(s,e){return s+e.mins;},0));
   var c=document.getElementById('recapCont');
   if(es.length===0){c.innerHTML='<div class="empty"><div class="emic">📭</div><p>Aucune entrée pour ce mois</p></div>';return;}
