@@ -848,10 +848,16 @@ async function save() {
 // ── WEEK NUM
 function wNum(d){var dt=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())),dn=dt.getUTCDay()||7;dt.setUTCDate(dt.getUTCDate()+4-dn);var ys=new Date(Date.UTC(dt.getUTCFullYear(),0,1));return Math.ceil((((dt-ys)/86400000)+1)/7);}
 
+// ── DATE HELPER — évite le décalage UTC
+function parseDate(str) {
+  var p = str.split('-');
+  return new Date(parseInt(p[0]), parseInt(p[1])-1, parseInt(p[2]));
+}
+
 // ── SOLDE — basé sur jours réellement travaillés × 7h48 (pas semaines calendaires)
 function solde(entries, emp, month, d) {
   var yr=new Date().getFullYear(), j=mpj(d);
-  var em=entries.filter(function(e){return e.employe===emp&&new Date(e.date).getMonth()===month&&new Date(e.date).getFullYear()===yr;});
+  var em=entries.filter(function(e){return e.employe===emp&&parseDate(e.date).getMonth()===month&&parseDate(e.date).getFullYear()===yr;});
   var worked=em.filter(function(e){return e.type==='work';}).reduce(function(s,e){return s+e.mins;},0);
   var cge=em.filter(function(e){return e.type==='cong';}).length*j;
   // Référence = nombre de jours non-fériés × 7h48
@@ -862,15 +868,15 @@ function solde(entries, emp, month, d) {
 // ── MY STATS
 function renderMy() {
   var d=gd(), name=user.name, yr=new Date().getFullYear();
-  var me=d.entries.filter(function(e){return e.employe===name&&new Date(e.date).getMonth()===curMonth&&new Date(e.date).getFullYear()===yr;}).sort(function(a,b){return a.date.localeCompare(b.date);});
-  var ye=d.entries.filter(function(e){return e.employe===name&&new Date(e.date).getFullYear()===yr;});
+  var me=d.entries.filter(function(e){return e.employe===name&&parseDate(e.date).getMonth()===curMonth&&parseDate(e.date).getFullYear()===yr;}).sort(function(a,b){return a.date.localeCompare(b.date);});
+  var ye=d.entries.filter(function(e){return e.employe===name&&parseDate(e.date).getFullYear()===yr;});
   var wrkM=me.filter(function(e){return e.type==='work';}).reduce(function(s,e){return s+e.mins;},0);
   var wrkY=ye.filter(function(e){return e.type==='work';}).reduce(function(s,e){return s+e.mins;},0);
   var sm=solde(d.entries,name,curMonth,d);
   var sy=0; for(var i=0;i<=curMonth;i++) sy+=solde(d.entries,name,i,d);
   var sc=function(m){return m>0?'sp':m<0?'sn':'sz';};
   var bw={};
-  me.forEach(function(e){var w=wNum(new Date(e.date+'T00:00:00'));if(!bw[w])bw[w]=[];bw[w].push(e);});
+  me.forEach(function(e){var w=wNum(parseDate(e.date));if(!bw[w])bw[w]=[];bw[w].push(e);});
   var rows='';
   Object.keys(bw).sort(function(a,b){return a-b;}).forEach(function(w){
     var we=bw[w];
@@ -879,7 +885,7 @@ function renderMy() {
     var ws=we.filter(function(e){return e.type==='work'||e.type==='cong';}).reduce(function(s,e){return s+(e.type==='cong'?mpj(d):e.mins);},0)-wd*mpj(d);
     rows+='<div class="wsum"><span>Semaine '+w+'</span><span>'+m2h(wk)+' · <span class="'+sc(ws)+'">'+m2h(ws,true)+'</span></span></div>';
     we.forEach(function(e){
-      var dt=new Date(e.date+'T00:00:00'),lb=dt.toLocaleDateString('fr-FR',{weekday:'short',day:'numeric',month:'short'});
+      var dt=parseDate(e.date),lb=dt.toLocaleDateString('fr-FR',{weekday:'short',day:'numeric',month:'short'});
       if(e.type==='cong'){rows+='<div class="drow cg"><div class="dlbl">'+lb+'</div><div class="ddet">🏖️ Congé</div><div class="dhrs">🏖️</div></div>';return;}
       if(e.type==='fer'){rows+='<div class="drow fr"><div class="dlbl">'+lb+'</div><div class="ddet">🎉 Férié</div><div class="dhrs">🎉</div></div>';return;}
       var det=[e.depart,e.retour,e.repas?'🍽️'+e.repas:'',e.depot?'🏭+'+e.depot:''].filter(Boolean).join(' ');
@@ -895,7 +901,7 @@ function renderMy() {
 // ── RECAP
 function renderRecap() {
   var mode=document.getElementById('recapMode').value, d=gd(), yr=new Date().getFullYear();
-  var es=d.entries.filter(function(e){var dt=new Date(e.date);return dt.getMonth()===curMonth&&dt.getFullYear()===yr&&(user.role==='admin'||user.role==='dir'||(user.role==='chef'&&e.employe===user.name));});
+  var es=d.entries.filter(function(e){var dt=parseDate(e.date);return dt.getMonth()===curMonth&&dt.getFullYear()===yr&&(user.role==='admin'||user.role==='dir'||(user.role==='chef'&&e.employe===user.name));});
   document.getElementById('recapTot').textContent=m2h(es.filter(function(e){return e.type==='work';}).reduce(function(s,e){return s+e.mins;},0));
   var c=document.getElementById('recapCont');
   if(es.length===0){c.innerHTML='<div class="empty"><div class="emic">📭</div><p>Aucune entrée pour ce mois</p></div>';return;}
@@ -913,7 +919,7 @@ function recByEmp(c,es,d){
     var sm=solde(d.entries,emp,curMonth,d),scc=sm>0?'sp':sm<0?'sn':'sz';
     var card=document.createElement('div');card.className='ecard';
     var rows=ee.map(function(e){
-      var dt=new Date(e.date+'T00:00:00'),lb=dt.toLocaleDateString('fr-FR',{weekday:'short',day:'numeric',month:'short'});
+      var dt=parseDate(e.date),lb=dt.toLocaleDateString('fr-FR',{weekday:'short',day:'numeric',month:'short'});
       if(e.type==='cong') return '<div class="drow cg"><div class="dlbl">'+lb+'</div><div class="ddet">🏖️ Congé</div><div style="display:flex;align-items:center;gap:4px"><div class="dhrs">🏖️</div><button class="delbtn" onclick="delE(\''+e.date+'\',\''+emp+'\')">✕</button></div></div>';
       if(e.type==='fer') return '<div class="drow fr"><div class="dlbl">'+lb+'</div><div class="ddet">🎉 Férié</div><div style="display:flex;align-items:center;gap:4px"><div class="dhrs">🎉</div><button class="delbtn" onclick="delE(\''+e.date+'\',\''+emp+'\')">✕</button></div></div>';
       var det=[e.depart,e.retour,e.repas?'🍽️'+e.repas:'',e.depot?'🏭+'+e.depot:''].filter(Boolean).join(' ');
@@ -927,7 +933,7 @@ function recByEmp(c,es,d){
 
 function recByWeek(c,es,d){
   var wks={};
-  es.forEach(function(e){var w=wNum(new Date(e.date+'T00:00:00'));if(!wks[w])wks[w]=[];wks[w].push(e);});
+  es.forEach(function(e){var w=wNum(parseDate(e.date));if(!wks[w])wks[w]=[];wks[w].push(e);});
   c.innerHTML='';
   Object.keys(wks).sort(function(a,b){return a-b;}).forEach(function(w){
     var we=wks[w],tw=we.filter(function(e){return e.type==='work';}).reduce(function(s,e){return s+e.mins;},0);
@@ -974,9 +980,9 @@ async function delE(date,emp){
 // ── STATS
 function renderStats(){
   var d=gd(),yr=new Date().getFullYear();
-  var me=d.entries.filter(function(e){var dt=new Date(e.date);return dt.getMonth()===curMonth&&dt.getFullYear()===yr;});
+  var me=d.entries.filter(function(e){var dt=parseDate(e.date);return dt.getMonth()===curMonth&&dt.getFullYear()===yr;});
   var tw=me.filter(function(e){return e.type==='work';}).reduce(function(s,e){return s+e.mins;},0);
-  var ty=d.entries.filter(function(e){return e.type==='work'&&new Date(e.date).getFullYear()===yr;}).reduce(function(s,e){return s+e.mins;},0);
+  var ty=d.entries.filter(function(e){return e.type==='work'&&parseDate(e.date).getFullYear()===yr;}).reduce(function(s,e){return s+e.mins;},0);
   var cg=me.filter(function(e){return e.type==='cong';}).length;
   var jn=new Set(me.filter(function(e){return e.type==='work';}).map(function(e){return e.date+e.employe;})).size;
   var moy=jn>0?Math.round(tw/jn):0;
