@@ -765,12 +765,18 @@ function updateCongePeriod() {
 
 function getOuvrables(from, to) {
   var days = [];
-  var d = new Date(from + 'T00:00:00');
-  var end = new Date(to + 'T00:00:00');
+  // Utiliser les parties de la date directement pour éviter les problèmes de fuseau horaire
+  var parts = from.split('-');
+  var d = new Date(parseInt(parts[0]), parseInt(parts[1])-1, parseInt(parts[2]));
+  var parts2 = to.split('-');
+  var end = new Date(parseInt(parts2[0]), parseInt(parts2[1])-1, parseInt(parts2[2]));
   while (d <= end) {
     var dow = d.getDay();
     if (dow !== 0 && dow !== 6) {
-      days.push(d.toISOString().slice(0,10));
+      var y = d.getFullYear();
+      var m = String(d.getMonth()+1).padStart(2,'0');
+      var day = String(d.getDate()).padStart(2,'0');
+      days.push(y+'-'+m+'-'+day);
     }
     d.setDate(d.getDate() + 1);
   }
